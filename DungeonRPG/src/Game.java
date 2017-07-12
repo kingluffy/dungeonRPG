@@ -44,7 +44,13 @@ public class Game extends JFrame implements KeyListener{
     public String health = "";
     public int m_up = 397;
     int access = 0;
-    Font font1 = new Font ("Levi Adobe Dia", Font.BOLD, 40);
+    Font font1 = new Font ("Levi Adobe Dia", Font.BOLD, 10);
+    Font font2 = new Font ("Levi Adobe Dia", Font.BOLD, 15);
+    Font font3 = new Font ("Levi Adobe Dia", Font.BOLD, 20);
+    Font font4 = new Font ("Levi Adobe Dia", Font.BOLD, 25);
+    Font font5 = new Font ("Levi Adobe Dia", Font.BOLD, 30);
+    Font font6 = new Font ("Levi Adobe Dia", Font.BOLD, 100);
+    public int upppercase = 0;
     public enum game_state{
         menu,
         enter_name,
@@ -179,7 +185,7 @@ public class Game extends JFrame implements KeyListener{
                             m_up = 500;
                             break;
                         case KeyEvent.VK_ENTER:
-                            select = 10;
+                            select = 5;
                             break;
                     }
                 }
@@ -187,108 +193,245 @@ public class Game extends JFrame implements KeyListener{
             case enter_name:
                 if (Name_length != 10) {
                     switch (w.getKeyCode()) {
+                        case KeyEvent.VK_SHIFT:
+                            upppercase = 1;
+                            break;
                         case KeyEvent.VK_A:
-                            Player_name = Player_name + "A";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "A";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "a";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_B:
-                            Player_name = Player_name + "B";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "B";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "b";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_C:
-                            Player_name = Player_name + "C";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "C";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "c";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_D:
-                            Player_name = Player_name + "D";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "D";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "d";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_E:
-                            Player_name = Player_name + "E";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "E";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "e";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_F:
-                            Player_name = Player_name + "F";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "F";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "f";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_G:
-                            Player_name = Player_name + "G";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "G";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "g";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_H:
-                            Player_name = Player_name + "H";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "H";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "h";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_I:
-                            Player_name = Player_name + "I";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "I";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "i";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_J:
-                            Player_name = Player_name + "J";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "J";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "j";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_K:
-                            Player_name = Player_name + "K";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "K";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "k";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_L:
-                            Player_name = Player_name + "L";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "L";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "l";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_M:
-                            Player_name = Player_name + "M";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "M";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "m";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_N:
-                            Player_name = Player_name + "N";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "N";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "n";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_O:
-                            Player_name = Player_name + "O";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "O";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "o";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_P:
-                            Player_name = Player_name + "P";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "P";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "p";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_Q:
-                            Player_name = Player_name + "Q";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "Q";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "q";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_R:
-                            Player_name = Player_name + "R";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "R";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "r";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_S:
-                            Player_name = Player_name + "S";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "S";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "s";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_T:
-                            Player_name = Player_name + "T";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "T";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "t";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_U:
-                            Player_name = Player_name + "U";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "U";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "u";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_V:
-                            Player_name = Player_name + "V";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "V";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "v";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_W:
-                            Player_name = Player_name + "W";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "W";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "w";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_X:
-                            Player_name = Player_name + "X";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "X";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "x";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_Y:
-                            Player_name = Player_name + "Y";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "Y";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "y";
+                            }
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_Z:
-                            Player_name = Player_name + "Z";
+                            if(upppercase == 1){
+                                Player_name = Player_name + "Z";
+                            }
+                            if(upppercase == 0){
+                                Player_name = Player_name + "z";
+                            }
+                            Name_length = Name_length + 1;
+                            break;
+                        case KeyEvent.VK_SPACE:
+                            Player_name = Player_name + " ";
                             Name_length = Name_length + 1;
                             break;
                         case KeyEvent.VK_BACK_SPACE:
@@ -298,6 +441,7 @@ public class Game extends JFrame implements KeyListener{
                         case KeyEvent.VK_ENTER:
                             current_state = game_state.play_game;
                             break;
+
                     }
                 }
                     switch (w.getKeyCode()){
@@ -374,6 +518,7 @@ public class Game extends JFrame implements KeyListener{
                 switch (w.getKeyCode()){
                     case KeyEvent.VK_ENTER:
                     hp = 100;
+                    access = 0;
                     Player_name = Player_name2;
                     current_state = game_state.menu;
                 }
@@ -381,23 +526,40 @@ public class Game extends JFrame implements KeyListener{
     }
     @Override
     public void keyReleased(KeyEvent w) {
-        switch (w.getKeyCode()) {
-            case KeyEvent.VK_W:
-                if (move == 1){
-                    domove = 0;
-        } break;
-            case KeyEvent.VK_S:
-                if (move == 2){
-                    domove = 0;
-                } break;
-            case KeyEvent.VK_A:
-                if (move == 3){
-                    domove = 0;
-                } break;
-            case KeyEvent.VK_D:
-                if (move == 4){
-                    domove = 0;
-                } break;
+        switch(current_state) {
+            case menu:
+                break;
+            case enter_name:
+                switch (w.getKeyCode()) {
+                    case KeyEvent.VK_SHIFT:
+                        upppercase = 0;
+                        break;
+                }
+                break;
+            case play_game:
+            switch (w.getKeyCode()) {
+                case KeyEvent.VK_W:
+                    if (move == 1) {
+                        domove = 0;
+                    }
+                    break;
+                case KeyEvent.VK_S:
+                    if (move == 2) {
+                        domove = 0;
+                    }
+                    break;
+                case KeyEvent.VK_A:
+                    if (move == 3) {
+                        domove = 0;
+                    }
+                    break;
+                case KeyEvent.VK_D:
+                    if (move == 4) {
+                        domove = 0;
+                    }
+                    break;
+            }
+            break;
         }
     }
     private void draw(){
@@ -407,8 +569,6 @@ public class Game extends JFrame implements KeyListener{
         switch(current_state){
 
             case menu:
-
-
             //clear screen
             g.setColor(Color.black);
             g.fillRect(0,0,WIDTH, HEIGHT);
@@ -422,13 +582,12 @@ public class Game extends JFrame implements KeyListener{
 
             g.setColor(Color.GRAY);
             g.fillRect(200, 397, 400, 100 );
-
-                g.setFont(font1);
+                g.setFont(font5);
                 g.setColor(Color.black);
-                g.drawString("Play Game", 369, 450);
+                g.drawString("Play Game", 358, 455);
 
                 g.setColor(Color.black);
-                g.drawString("Quit", 386, 550);
+                g.drawString("Quit", 386, 560);
 
                 g.setColor(Color.red);
                 g.fillRect(200,(int)m_up,20, 100);
@@ -442,14 +601,16 @@ public class Game extends JFrame implements KeyListener{
                 g.setColor(Color.black);
                 g.fillRect(0,0,WIDTH, HEIGHT);
 
+                g.setFont(font3);
                 g.setColor(Color.gray);
                 g.drawString("Enter Name:", 100, 100);
 
                 g.setColor(Color.white);
                 g.fillRect(180, 85, 200, 20);
 
+                g.setFont(font3);
                 g.setColor(Color.black);
-                g.drawString(Player_name, 180, 100);
+                g.drawString(Player_name, 185, 102);
                 break;
             case play_game:
 
@@ -494,10 +655,14 @@ public class Game extends JFrame implements KeyListener{
                 }
 
                 g.setColor(Color.white);
-                g.fillRect(470,500,300, 30);
+                g.fillRect(455,498,315, 34);
 
+                g.setFont(font3);
                 g.setColor(Color.black);
-                g.drawString(Player_name, 475, 520);
+                g.drawString(Player_name, 460, 522);
+
+                g.setColor(Color.gray);
+                g.fillRect(557,501,206, 28);
 
                 if(hp >= 71) {
                     g.setColor(Color.green);
@@ -512,13 +677,15 @@ public class Game extends JFrame implements KeyListener{
                 g.fillRect(560,504,(int)hp*2, 22);
 
                 g.setColor(Color.black);
-                g.drawString(Integer.toString(hp) + "/100", 650, 520);
+                g.drawString(Integer.toString(hp) + "/100", 650, 523);
                 break;
             case end:
                 g.setColor(Color.red);
                 g.fillRect(0,0,WIDTH, HEIGHT);
+
+                g.setFont(font6);
                 g.setColor(Color.black);
-                g.drawString("DEATH", 400, 300);
+                g.drawString("DEATH", 290, 330);
 
         }
 
