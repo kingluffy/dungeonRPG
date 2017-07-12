@@ -6,7 +6,8 @@ import java.awt.image.BufferStrategy;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
+import java.awt.Font;
+import java.awt.Graphics;
 public class Game extends JFrame implements KeyListener{
 
     //window vars
@@ -43,6 +44,7 @@ public class Game extends JFrame implements KeyListener{
     public String health = "";
     public int m_up = 397;
     int access = 0;
+    Font font1 = new Font ("Levi Adobe Dia", Font.BOLD, 40);
     public enum game_state{
         menu,
         enter_name,
@@ -421,6 +423,7 @@ public class Game extends JFrame implements KeyListener{
             g.setColor(Color.GRAY);
             g.fillRect(200, 397, 400, 100 );
 
+                g.setFont(font1);
                 g.setColor(Color.black);
                 g.drawString("Play Game", 369, 450);
 
