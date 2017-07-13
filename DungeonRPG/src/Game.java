@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.awt.Font;
 import java.awt.Graphics;
 public class Game extends JFrame implements KeyListener{
 
@@ -13,7 +14,6 @@ public class Game extends JFrame implements KeyListener{
     private final int MAX_FPS;
     private final int WIDTH;
     private final int HEIGHT;
-
     //RECTANGLES
     private Rectangle[] rects;
     //double buffer
@@ -50,8 +50,20 @@ public class Game extends JFrame implements KeyListener{
     Font font3 = new Font ("Levi Adobe Dia", Font.BOLD, 20);
     Font font4 = new Font ("Levi Adobe Dia", Font.BOLD, 25);
     Font font5 = new Font ("Levi Adobe Dia", Font.BOLD, 30);
-    Font font6 = new Font ("Levi Adobe Dia", Font.BOLD, 100);
+    Font font6 = new Font ("Levi Adobe Dia", Font.BOLD, 50);
+    Font font7 = new Font ("Levi Adobe Dia", Font.BOLD, 100);
+    Font font8 = new Font ("Levi Adobe Dia", Font.BOLD, 33);
+    public int b_but = 1;
     public int upppercase = 0;
+    public int show_menu = 0;
+    public int r_heal = 5;
+    public int b_heal = 2;
+    public int g_heal = 1;
+    public int heal = 0;
+    public int i_over = 15;
+    public int i_up = 0;
+    public int blink = 0;
+    public int i_back = 0;
     public enum game_state{
         menu,
         enter_name,
@@ -171,7 +183,19 @@ public class Game extends JFrame implements KeyListener{
                 }
             }
         }
-        //if(wo < 1000 && wo + 40 > 0 && wi < 600 && wi + 40 > 550)
+
+        if (move == 1 && domove == 1 && wi != 25){
+            wi = wi-5;
+        }
+        if (move == 2 && domove == 1 && wi != 560){
+            wi = wi+5;
+        }
+        if (move == 3 && domove == 1 && wo != 0){
+            wo = wo-5;
+        }
+        if (move == 4 && domove == 1 && wo != 760){
+            wo = wo+5;
+        }
         if(hp == 0){
             current_state = game_state.end;
         }
@@ -191,6 +215,71 @@ public class Game extends JFrame implements KeyListener{
         if(current_state == game_state.menu && select == 1 &&  m_up == 500){
             System.exit(0);
         }
+        if(b_up == 500 && b_over == 20){
+            b_but = 1;
+        }
+        if(b_up == 550 && b_over == 20){
+            b_but = 2;
+        }
+        if(b_up == 500 && b_over == 230){
+            b_but = 3;
+        }
+        if(b_up == 550 && b_over == 230){
+            b_but = 4;
+        }
+        if(current_state == game_state.encounter && select == 1 &&  b_but == 4){
+            current_state = game_state.play_game;
+            b_but = 1;
+            b_up = 500;
+            b_over = 20;
+            select = 0;
+        }
+        if(current_state == game_state.encounter && select == 1 &&  b_but == 2){
+            select = 0;
+            show_menu = 1;
+        }
+        if(show_menu == 1 && blink == 1 && heal == 1 && r_heal != 0){
+            select = 0;
+            blink = 0;
+            heal = 0;
+            hp = hp + 20;
+            if(hp > 100){
+                hp = 100;
+            }
+            r_heal = r_heal - 1;
+        }
+        if(show_menu == 1 && blink == 1 && heal == 2 && b_heal != 0){
+            select = 0;
+            blink = 0;
+            heal = 0;
+            hp = hp + 50;
+            if(hp > 100){
+                hp = 100;
+            }
+            b_heal = b_heal - 1;
+        }
+        if(show_menu == 1 && blink == 1 && heal == 3 && g_heal != 0){
+            select = 0;
+            blink = 0;
+            heal = 0;
+            hp = hp +80;
+            if(hp > 100){
+                hp = 100;
+            }
+            g_heal = g_heal - 1;
+        }
+        if(show_menu == 1 && blink == 1 && i_back == 1) {
+            select = 0;
+            blink = 0;
+            i_up = 0;
+            i_back = 0;
+            show_menu = 0;
+        }
+
+
+
+
+
     }
 
 
@@ -478,11 +567,11 @@ public class Game extends JFrame implements KeyListener{
                             Player_name = Player_name + "1";
                             Name_length = Name_length + 1;
                             break;
-
                         case KeyEvent.VK_0:
                             Player_name = Player_name + "0";
                             Name_length = Name_length + 1;
                             break;
+
                     }
                 }
                 switch (w.getKeyCode()){
@@ -528,19 +617,33 @@ public class Game extends JFrame implements KeyListener{
                 if(click == 1){
                     switch (w.getKeyCode()) {
                         case KeyEvent.VK_W:
-                            b_up = 500;
+                            switch (show_menu) {
+                                case 0:
+                                    b_up = 500;
+                                    break;
+                                case 1:
+                                    if (i_up != 477) {
+                                        i_up = i_up - 30;
+                                    }
+                            }
+
                             break;
                         case KeyEvent.VK_S:
-                            b_up = 550;
+                            switch (show_menu) {
+                                case 0:
+                                    b_up = 550;
+                                    break;
+                                case 1:
+                                    if (i_up != 567) {
+                                        i_up = i_up + 30;
+                                    }
+                            }
                             break;
                         case KeyEvent.VK_A:
                             b_over = 20;
                             break;
                         case KeyEvent.VK_D:
                             b_over = 230;
-                            break;
-                        case KeyEvent.VK_ESCAPE:
-                            current_state = game_state.play_game;
                             break;
                         case KeyEvent.VK_MINUS:
                             hp = hp - 1;
@@ -551,7 +654,44 @@ public class Game extends JFrame implements KeyListener{
                             }
                             break;
                         case KeyEvent.VK_ENTER:
-                            select = 5;
+                            switch (show_menu) {
+                                case 0:
+                                    switch (b_but) {
+                                        case 1:
+                                            select = 5;
+                                            break;
+                                        case 2:
+                                            select = 5;
+                                            break;
+                                        case 3:
+                                            select = 5;
+                                            break;
+                                        case 4:
+                                            select = 5;
+                                            break;
+                                    }
+                                case 1:
+                                    switch (i_up){
+                                        case 477:
+                                            select = 5;
+                                            heal = 1;
+                                            break;
+                                        case 507:
+                                            select = 5;
+                                            heal = 2;
+                                            break;
+                                        case 537:
+                                            select = 5;
+                                            heal = 3;
+                                            break;
+                                        case 567:
+                                            select = 5;
+                                            i_back = 1;
+                                            break;
+
+                                    }
+                            }
+                            break;
                     }
                 }
                 break;
@@ -607,20 +747,22 @@ public class Game extends JFrame implements KeyListener{
 
 //get canvas
         Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
-        switch(current_state){
+        switch(current_state) {
 
             case menu:
                 //clear screen
                 g.setColor(Color.black);
-                g.fillRect(0,0,WIDTH, HEIGHT);
+                g.fillRect(0, 0, WIDTH, HEIGHT);
 
-
+                //draw fps
+                g.setColor(Color.GREEN);
+                g.drawString(Long.toString(fps), 10, 40);
 
                 g.setColor(Color.GRAY);
-                g.fillRect(200, 500, 400, 100 );
+                g.fillRect(200, 500, 400, 100);
 
                 g.setColor(Color.GRAY);
-                g.fillRect(200, 397, 400, 100 );
+                g.fillRect(200, 397, 400, 100);
                 g.setFont(font5);
                 g.setColor(Color.black);
                 g.drawString("Play Game", 358, 455);
@@ -629,16 +771,16 @@ public class Game extends JFrame implements KeyListener{
                 g.drawString("Quit", 386, 560);
 
                 g.setColor(Color.red);
-                g.fillRect(200,(int)m_up,20, 100);
-                if(select > 0){
+                g.fillRect(200, (int) m_up, 20, 100);
+                if (select > 0) {
                     g.setColor(Color.white);
-                    g.fillRect(200,(int)m_up,400, 100);
-                    select = select-1;
+                    g.fillRect(200, (int) m_up, 400, 100);
+                    select = select - 1;
                 }
                 break;
             case enter_name:
                 g.setColor(Color.black);
-                g.fillRect(0,0,WIDTH, HEIGHT);
+                g.fillRect(0, 0, WIDTH, HEIGHT);
 
                 g.setFont(font3);
                 g.setColor(Color.gray);
@@ -655,66 +797,76 @@ public class Game extends JFrame implements KeyListener{
 
                 //clear screen
                 g.setColor(Color.black);
-                g.fillRect(0,0,WIDTH, HEIGHT);
-
+                g.fillRect(0, 0, WIDTH, HEIGHT);
                 //draw fps
                 g.setColor(Color.GREEN);
                 g.drawString(Long.toString(fps), 10, 40);
 
                 g.setColor(Color.GRAY);
-                g.fillRect( (int)wo, (int)wi, 40,40);
+                g.fillRect((int) wo, (int) wi, 40, 40);
 
                 for(Rectangle rect : rects){
                     g.fillRect(rect.x, rect.y, rect.width, rect.height);
                 }
-
-               /* g.setColor(Color.GRAY);
-                g.fillRect(0, 550, 1000, 50 );
-
-                g.setColor(Color.GRAY);
-              g.fillRect(0, 15, 1000, 50 );
-
-                g.setColor(Color.GRAY);
-              g.fillRect(0, 0, 50, 1000 );
-
-                g.setColor(Color.GRAY);
-                g.fillRect(750, 350, 200, 250 );
-
-                g.setColor(Color.GRAY);
-                g.fillRect(750, 0, 200, 250 );
-                */
-
                 break;
             case encounter:
                 g.setColor(Color.black);
-                g.fillRect(0,0,WIDTH, HEIGHT);
+                g.fillRect(0, 0, WIDTH, HEIGHT);
 
                 //draw fps
                 g.setColor(Color.GREEN);
                 g.drawString(Long.toString(fps), 10, 40);
+                switch (show_menu){
+                    case 0:
+                        g.setColor(Color.gray);
+                        g.fillRect(20, 500, 200, 40);
 
-                g.setColor(Color.gray);
-                g.fillRect(20,500,200, 40);
+                        g.setColor(Color.gray);
+                        g.fillRect(20, 550, 200, 40);
 
-                g.setColor(Color.gray);
-                g.fillRect(20,550,200, 40);
+                        g.setColor(Color.gray);
+                        g.fillRect(230, 500, 200, 40);
 
-                g.setColor(Color.gray);
-                g.fillRect(230,500,200, 40);
-
-                g.setColor(Color.gray);
-                g.fillRect(230,550,200, 40);
-
-                g.setColor(Color.red);
-                g.fillRect((int)b_over,(int)b_up,20, 40);
-                if(select > 0){
-                    g.setColor(Color.white);
-                    g.fillRect((int)b_over,(int)b_up,200, 40);
-                    select = select-1;
-
+                        g.setColor(Color.gray);
+                        g.fillRect(230, 550, 200, 40);
+                        g.setFont(font6);
+                        g.setColor(Color.white);
+                        g.drawString("FIGHT", 85, 540);
+                        g.drawString("ITEM", 90, 590);
+                        g.drawString("SKILLS", 280, 540);
+                        g.drawString("RUN", 300, 590);
+                        g.setColor(Color.red);
+                        g.fillRect((int) b_over, (int) b_up, 20, 40);
+                        if (select > 0) {
+                            g.setColor(Color.white);
+                            g.fillRect((int) b_over, (int) b_up, 200, 40);
+                            select = select - 1;
+                        }
+                        break;
+                    case 1:
+                        g.setColor(Color.red);
+                        if(i_up == 0){
+                            i_up = 477;
+                        }
+                        g.fillRect((int) i_over, (int) i_up, 10, 20);
+                        g.setColor(Color.white);
+                        setFont(font8);
+                        g.drawString("Red Potion x" + Integer.toString(r_heal), 30, 500);
+                        g.drawString("Blue Potion x" + Integer.toString(b_heal), 29, 530);
+                        g.drawString("Green Potion x" + Integer.toString(g_heal), 29, 560);
+                        g.drawString("Back", 30, 590);
+                        if (select > 0) {
+                            g.setColor(Color.white);
+                            g.fillRect((int) i_over, (int) i_up, 180, 20);
+                            select = select - 1;
+                            if (select == 1){
+                                blink = 1;
+                            }
+                        }
+                        break;
                 }
-
                 g.setColor(Color.white);
+                g.setFont(font6);
                 g.fillRect(455,498,315, 34);
 
                 g.setFont(font3);
@@ -738,21 +890,18 @@ public class Game extends JFrame implements KeyListener{
 
                 g.setColor(Color.black);
                 g.drawString(Integer.toString(hp) + "/100", 650, 523);
+
                 break;
             case end:
                 g.setColor(Color.red);
                 g.fillRect(0,0,WIDTH, HEIGHT);
 
-                g.setFont(font6);
+                g.setFont(font7);
                 g.setColor(Color.black);
                 g.drawString("DEATH", 290, 330);
 
-
         }
 
-        //draw fps
-        g.setColor(Color.GREEN);
-        g.drawString(Long.toString(fps), 10, 40);
         //release resources, show the buffer
         g.dispose();
         strategy.show();
@@ -783,7 +932,6 @@ public class Game extends JFrame implements KeyListener{
         }
 
     }
-
 
 
     public static void main(String[] args){
