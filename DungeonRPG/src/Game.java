@@ -74,8 +74,9 @@ public class Game extends JFrame implements KeyListener{
     public int gold = 100;
     public int bugde = 40;
     public BufferedImage hair;
-    public BufferedImage hat;
+    public BufferedImage g_hair;
     public int head = 0;
+    public int head_change = 0;
     public enum room{
         shop,
         dungeon1,
@@ -127,7 +128,7 @@ public class Game extends JFrame implements KeyListener{
         this.HEIGHT = height;
         try{
             hair = ImageIO.read(new File("C:\\Users\\IGMAdmin\\IdeaProjects\\DungeonRPG\\super_hair.png"));
-            hat = ImageIO.read(new File("C:\\Users\\IGMAdmin\\IdeaProjects\\DungeonRPG\\luffy_hat.png"));
+            g_hair = ImageIO.read(new File("C:\\Users\\IGMAdmin\\IdeaProjects\\DungeonRPG\\goku_hair.png"));
         } catch(IOException e){
             e.printStackTrace();
         }
@@ -736,6 +737,7 @@ public class Game extends JFrame implements KeyListener{
                         Player_name = Player_name2;
                         Name_length = 0;
                         break;
+
                 }
 
                 break;
@@ -759,12 +761,15 @@ public class Game extends JFrame implements KeyListener{
                         domove = 1;
                         break;
                     case KeyEvent.VK_H:
-                        if(head == 0){
+                        if(head == 0 && head_change == 0) {
                             head = 1;
+                            head_change = 1;
                         }
-                        if(head == 1){
+                        if(head == 1 && head_change == 0){
                             head = 0;
+                            head_change = 1;
                         }
+                        head_change = 0;
                         break;
                     case KeyEvent.VK_CONTROL:
                         walk_on = 1;
@@ -973,10 +978,10 @@ public class Game extends JFrame implements KeyListener{
                 g.setColor(Color.GRAY);
                 g.fillRect((int) wo, (int) wi, 40, 40);
                 if(head == 0) {
-                    g.drawImage(hair, (int) wo - 50, (int) wi - 40, hair.getHeight() / 7, hair.getWidth() / 7, null);
+                    g.drawImage(g_hair, (int) wo - 50, (int) wi - 40, hair.getHeight() / 7, hair.getWidth() / 7, null);
                 }
                 if(head == 1){
-                    g.drawImage(hat, (int) wo - 50, (int) wi - 40, hair.getHeight() / 7, hair.getWidth() / 7, null);
+                    g.drawImage(hair, (int) wo - 50, (int) wi - 40, hair.getHeight() / 7, hair.getWidth() / 7, null);
                 }
                 g.setColor(Color.yellow);
                 g.setFont(font5);
