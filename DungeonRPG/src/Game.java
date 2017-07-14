@@ -1,21 +1,26 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.WindowConstants;
 import java.awt.image.BufferStrategy;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 public class Game extends JFrame implements KeyListener{
 
     //window vars
-    private final int MAX_FPS;
-    private final int WIDTH;
-    private final int HEIGHT;
-    //RECTANGLES
-    private Rectangle[] rects;
+    private int MAX_FPS;
+    private int WIDTH;
+    private int HEIGHT;
     //double buffer
     private BufferStrategy strategy;
 
@@ -64,6 +69,29 @@ public class Game extends JFrame implements KeyListener{
     public int i_up = 0;
     public int blink = 0;
     public int i_back = 0;
+    public int walk_on = 0;
+    public int debug = 0;
+    public int gold = 100;
+    public BufferedImage hair;
+    public Game(){
+        try{
+            hair = ImageIO.read(getClass().getResourceAsStream("C:\\Users\\Jraym\\Documents\\Code\\dungeonRPG-master\\DungeonRPG\\super_hair.png"));
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+
+        repaint();
+    }
+    public enum room{
+        shop,
+        dungeon1,
+        upgrades,
+        dungeon2,
+        skills,
+        boss
+
+    }
+    room current_room = room.shop;
     public enum game_state{
         menu,
         enter_name,
@@ -85,8 +113,8 @@ public class Game extends JFrame implements KeyListener{
     private float v2 = 100.0f;
 
 
-    private float wi = 280;
-    private float wo = 380;
+    private int wi = 280;
+    private int wo = 380;
 
     private ArrayList<Integer> keys = new ArrayList<>();
 
@@ -106,17 +134,6 @@ public class Game extends JFrame implements KeyListener{
     }
 
     void init(){
-        rects = new Rectangle[5];
-        //make rectangles;
-        rects[0] = new Rectangle(0, 550, 1000, 50 );
-
-        rects[1] = new Rectangle(0, 15, 1000, 50 );
-
-        rects[2] = new Rectangle(0, 0, 50, 1000 );
-
-        rects[3] = new Rectangle(750, 350, 200, 250 );
-
-        rects[4] = new Rectangle(750, 0, 200, 250 );
         //initialize JFrame
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(null);
@@ -151,50 +168,29 @@ public class Game extends JFrame implements KeyListener{
         x2 += v2 * dt;
         if (x2 < 50 || x2 > (WIDTH - 50)) v2 *= -1.0f;
 
-        if (move == 3 && domove == 1 && wo != 0){
-            wo = wo-5;
-            for(Rectangle rect : rects){
-                if(wo < rect.x + rect.width && wo + 40 > rect.x && wi < rect.y + rect.height && wi + 40 > rect.y){
-                    wo = rect.x + rect.width;
-                }
-            }
-        }
-        else if (move == 4 && domove == 1 && wo != 760){
-            wo = wo+5;
-            for(Rectangle rect : rects){
-                if(wo < rect.x + rect.width && wo + 40 > rect.x && wi < rect.y + rect.height && wi + 40 > rect.y){
-                    wo = rect.x - 40;
-                }
-            }
-        }
-        else if (move == 1 && domove == 1 && wi != 25){
-            wi = wi-5;
-            for(Rectangle rect : rects){
-                if(wo < rect.x + rect.width && wo + 40 > rect.x && wi < rect.y + rect.height && wi + 40 > rect.y){
-                    wi = rect.y + rect.height;
-                }
-            }
-        }
-        else if (move == 2 && domove == 1 && wi != 560){
-            wi = wi+5;
-            for(Rectangle rect : rects){
-                if(wo < rect.x + rect.width && wo + 40 > rect.x && wi < rect.y + rect.height && wi + 40 > rect.y){
-                    wi = rect.y - 40;
-                }
-            }
-        }
-
         if (move == 1 && domove == 1 && wi != 25){
-            wi = wi-5;
+            if(walk_on == 0){
+                wi = wi-4;
+            }
+            wi = wi-1;
         }
         if (move == 2 && domove == 1 && wi != 560){
-            wi = wi+5;
+            if(walk_on == 0){
+                wi = wi+4;
+            }
+            wi = wi+1;
         }
         if (move == 3 && domove == 1 && wo != 0){
-            wo = wo-5;
+            if(walk_on == 0){
+                wo = wo-4;
+            }
+            wo = wo-1;
         }
         if (move == 4 && domove == 1 && wo != 760){
-            wo = wo+5;
+            if(walk_on == 0){
+                wo = wo+4;
+            }
+            wo = wo+1;
         }
         if(hp == 0){
             current_state = game_state.end;
@@ -275,11 +271,93 @@ public class Game extends JFrame implements KeyListener{
             i_back = 0;
             show_menu = 0;
         }
+        switch(current_state){
+            case play_game:
+                switch(current_room) {
+                    case shop:
+                    if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
+                        switch (move) {
+                            case 1:
+                                break;
+                            case 2:
+                                wi = 480;
+                                break;
+                            case 3:
+                                wo = 350;
+                                break;
+                            case 4:
+                                break;
+                        }
+                    }
+                    if (70 > wo && wo > 20 && 520 > wi && wi > 40) {
+                        switch (move) {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                wo = 70;
+                                break;
+                            case 4:
+                                break;
+                        }
+                    }
+                    if (700 > wo && wo > 50 && 60 > wi && wi > 50) {
+                        switch (move) {
+                            case 1:
+                                wi = 60;
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                        }
+                    }
+                    if (740 > wo && wo > 690 && 530 > wi && wi > 50) {
+                        switch (move) {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                wo = 690;
+                                break;
+                        }
+                    }
+                    if (740 > wo && wo > 410 && 530 > wi && wi > 480) {
+                        switch (move) {
+                            case 1:
+                                break;
+                            case 2:
+                                wi = 480;
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                wo = 410;
+                                break;
+                        }
+                    }
+                        if (420 > wo && wo > 340 && 525 > wi && wi > 485) {
+                            current_room = room.dungeon1;
+                            wo = 380;
+                            wi = 60;
+                        }
+                    break;
+                    case dungeon1:
+                        if (400 > wo && wo > 360 && 60 > wi && wi > 30) {
+                            current_room = room.shop;
+                            wo = 380;
+                            wi = 485;
+                        }
 
-
-
-
-
+                        break;
+                }
+        }
     }
 
 
@@ -308,6 +386,9 @@ public class Game extends JFrame implements KeyListener{
                             break;
                         case KeyEvent.VK_ENTER:
                             select = 5;
+                            break;
+                        case KeyEvent.VK_V:
+                            debug = 1;
                             break;
                     }
                 }
@@ -604,6 +685,9 @@ public class Game extends JFrame implements KeyListener{
                         move = 4;
                         domove = 1;
                         break;
+                    case KeyEvent.VK_CONTROL:
+                        walk_on = 1;
+                        break;
                     case KeyEvent.VK_MINUS:
                         current_state = game_state.encounter;
                         break;
@@ -739,10 +823,13 @@ public class Game extends JFrame implements KeyListener{
                             domove = 0;
                         }
                         break;
+                    case KeyEvent.VK_CONTROL:
+                        walk_on = 0;
                 }
                 break;
         }
     }
+
     private void draw(){
 
 //get canvas
@@ -763,12 +850,12 @@ public class Game extends JFrame implements KeyListener{
 
                 g.setColor(Color.GRAY);
                 g.fillRect(200, 397, 400, 100);
-                g.setFont(font5);
+                g.setFont(font7);
                 g.setColor(Color.black);
-                g.drawString("Play Game", 358, 455);
+                g.drawString("Play Game", 250, 485);
 
                 g.setColor(Color.black);
-                g.drawString("Quit", 386, 560);
+                g.drawString("Quit", 340, 590);
 
                 g.setColor(Color.red);
                 g.fillRect(200, (int) m_up, 20, 100);
@@ -791,10 +878,10 @@ public class Game extends JFrame implements KeyListener{
 
                 g.setFont(font3);
                 g.setColor(Color.black);
+
                 g.drawString(Player_name, 185, 102);
                 break;
             case play_game:
-
                 //clear screen
                 g.setColor(Color.black);
                 g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -804,9 +891,32 @@ public class Game extends JFrame implements KeyListener{
 
                 g.setColor(Color.GRAY);
                 g.fillRect((int) wo, (int) wi, 40, 40);
+                g.drawImage(hair, (int) wo, (int) wi, 100, 100,null);
 
-                for(Rectangle rect : rects){
-                    g.fillRect(rect.x, rect.y, rect.width, rect.height);
+
+                g.setColor(Color.yellow);
+                g.setFont(font5);
+                g.drawString(Integer.toString(gold) + "g", 95, 580);
+
+                switch(current_room) {
+                    case shop:
+                        g.setColor(Color.GRAY);
+                    g.fillRect(60, 50, 680, 10);
+                    g.fillRect(60, 50, 10, 480);
+                    g.fillRect(730, 50, 10, 480);
+                    g.fillRect(60, 520, 290, 10);
+                    g.fillRect(450, 520, 290, 10);
+                    g.setColor(Color.white);
+                    g.fillRect(350, 525, 100, 5);
+                    break;
+                    case dungeon1:
+                        break;
+                }
+                g.setColor(Color.white);
+                g.setFont(font4);
+                if(debug == 1) {
+                    g.drawString("wo: " + Integer.toString(wo), 325, 50);
+                    g.drawString("wi: " + Integer.toString(wi), 425, 50);
                 }
                 break;
             case encounter:
@@ -905,6 +1015,9 @@ public class Game extends JFrame implements KeyListener{
         //release resources, show the buffer
         g.dispose();
         strategy.show();
+    }
+    public void paint(Graphics g){
+        g.drawImage(hair, (int) wo, (int) wi, null);
     }
 
 
