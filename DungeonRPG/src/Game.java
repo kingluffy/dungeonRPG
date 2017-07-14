@@ -72,16 +72,10 @@ public class Game extends JFrame implements KeyListener{
     public int walk_on = 0;
     public int debug = 0;
     public int gold = 100;
+    public int bugde = 40;
     public BufferedImage hair;
-    public Game(){
-        try{
-            hair = ImageIO.read(getClass().getResourceAsStream("C:\\Users\\Jraym\\Documents\\Code\\dungeonRPG-master\\DungeonRPG\\super_hair.png"));
-        } catch(IOException e){
-            e.printStackTrace();
-        }
-
-        repaint();
-    }
+    public BufferedImage hat;
+    public int head = 0;
     public enum room{
         shop,
         dungeon1,
@@ -131,6 +125,13 @@ public class Game extends JFrame implements KeyListener{
         this.MAX_FPS = fps;
         this.WIDTH = width;
         this.HEIGHT = height;
+        try{
+            hair = ImageIO.read(new File("C:\\Users\\IGMAdmin\\IdeaProjects\\DungeonRPG\\super_hair.png"));
+            hat = ImageIO.read(new File("C:\\Users\\IGMAdmin\\IdeaProjects\\DungeonRPG\\luffy_hat.png"));
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        repaint();
     }
 
     void init(){
@@ -275,80 +276,152 @@ public class Game extends JFrame implements KeyListener{
             case play_game:
                 switch(current_room) {
                     case shop:
-                    if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
-                        switch (move) {
-                            case 1:
-                                break;
-                            case 2:
-                                wi = 480;
-                                break;
-                            case 3:
-                                wo = 350;
-                                break;
-                            case 4:
-                                break;
+                        if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    wi = 480;
+                                    break;
+                                case 3:
+                                    wo = 350;
+                                    break;
+                                case 4:
+                                    break;
+                            }
                         }
-                    }
-                    if (70 > wo && wo > 20 && 520 > wi && wi > 40) {
-                        switch (move) {
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                wo = 70;
-                                break;
-                            case 4:
-                                break;
+                        if (70 > wo && wo > 20 && 520 > wi && wi > 40) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    wo = 70;
+                                    break;
+                                case 4:
+                                    break;
+                            }
                         }
-                    }
-                    if (700 > wo && wo > 50 && 60 > wi && wi > 50) {
-                        switch (move) {
-                            case 1:
-                                wi = 60;
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                break;
+                        if (700 > wo && wo > 50 && 60 > wi && wi > 50) {
+                            switch (move) {
+                                case 1:
+                                    wi = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                            }
                         }
-                    }
-                    if (740 > wo && wo > 690 && 530 > wi && wi > 50) {
-                        switch (move) {
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                wo = 690;
-                                break;
+                        if (740 > wo && wo > 690 && 530 > wi && wi > 50) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    wo = 690;
+                                    break;
+                            }
                         }
-                    }
-                    if (740 > wo && wo > 410 && 530 > wi && wi > 480) {
-                        switch (move) {
-                            case 1:
-                                break;
-                            case 2:
-                                wi = 480;
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                wo = 410;
-                                break;
+                        if (740 > wo && wo > 410 && 530 > wi && wi > 480) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    wi = 480;
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    wo = 410;
+                                    break;
+                            }
                         }
-                    }
                         if (420 > wo && wo > 340 && 525 > wi && wi > 485) {
                             current_room = room.dungeon1;
                             wo = 380;
                             wi = 60;
                         }
-                    break;
+                        break;
                     case dungeon1:
+                        if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    wi = 480;
+                                    break;
+                                case 3:
+                                    wo = 350;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (70 > wo && wo > 20 && 520 > wi && wi > 40) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    wo = 70;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (700 > wo && wo > 50 && 60 > wi && wi > 50) {
+                            switch (move) {
+                                case 1:
+                                    wi = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (740 > wo && wo > 690 && 530 > wi && wi > 50) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    wo = 690;
+                                    break;
+                            }
+                        }
+                        if (740 > wo && wo > 410 && 530 > wi && wi > 480) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    wi = 480;
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    wo = 410;
+                                    break;
+                            }
+                        }
+                        if (420 > wo && wo > 340 && 525 > wi && wi > 485) {
+                            current_room = room.dungeon1;
+                            wo = 380;
+                            wi = 60;
+                        }
                         if (400 > wo && wo > 360 && 60 > wi && wi > 30) {
                             current_room = room.shop;
                             wo = 380;
@@ -685,6 +758,14 @@ public class Game extends JFrame implements KeyListener{
                         move = 4;
                         domove = 1;
                         break;
+                    case KeyEvent.VK_H:
+                        if(head == 0){
+                            head = 1;
+                        }
+                        if(head == 1){
+                            head = 0;
+                        }
+                        break;
                     case KeyEvent.VK_CONTROL:
                         walk_on = 1;
                         break;
@@ -891,9 +972,12 @@ public class Game extends JFrame implements KeyListener{
 
                 g.setColor(Color.GRAY);
                 g.fillRect((int) wo, (int) wi, 40, 40);
-                g.drawImage(hair, (int) wo, (int) wi, 100, 100,null);
-
-
+                if(head == 0) {
+                    g.drawImage(hair, (int) wo - 50, (int) wi - 40, hair.getHeight() / 7, hair.getWidth() / 7, null);
+                }
+                if(head == 1){
+                    g.drawImage(hat, (int) wo - 50, (int) wi - 40, hair.getHeight() / 7, hair.getWidth() / 7, null);
+                }
                 g.setColor(Color.yellow);
                 g.setFont(font5);
                 g.drawString(Integer.toString(gold) + "g", 95, 580);
@@ -901,15 +985,20 @@ public class Game extends JFrame implements KeyListener{
                 switch(current_room) {
                     case shop:
                         g.setColor(Color.GRAY);
-                    g.fillRect(60, 50, 680, 10);
-                    g.fillRect(60, 50, 10, 480);
-                    g.fillRect(730, 50, 10, 480);
-                    g.fillRect(60, 520, 290, 10);
-                    g.fillRect(450, 520, 290, 10);
-                    g.setColor(Color.white);
-                    g.fillRect(350, 525, 100, 5);
-                    break;
+                        g.fillRect(60, 50, 680, 10);
+                        g.fillRect(60, 50, 10, 480);
+                        g.fillRect(730, 50, 10, 480);
+                        g.fillRect(60, 520, 290, 10);
+                        g.fillRect(450, 520, 290, 10);
+                        g.setColor(Color.white);
+                        g.fillRect(350, 525, 100, 5);
+                        break;
                     case dungeon1:
+                        g.setColor(Color.GRAY);
+                        g.fillRect(60, 50, 680, 10);
+                        g.fillRect(60, 50, 10, 480);
+                        g.fillRect(730, 50, 10, 480);
+                        g.fillRect(60, 520, 680, 10);
                         break;
                 }
                 g.setColor(Color.white);
