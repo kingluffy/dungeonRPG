@@ -277,7 +277,7 @@ public class Game extends JFrame implements KeyListener{
             case play_game:
                 switch(current_room) {
                     case shop:
-                        if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
+                        if (350 >= wo && wo > 60 && 520 > wi && wi > 480) {
                             switch (move) {
                                 case 1:
                                     break;
@@ -351,7 +351,7 @@ public class Game extends JFrame implements KeyListener{
                         }
                         break;
                     case dungeon1:
-                        if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
+                        if (740 > wo && wo > 60 && 520 > wi && wi > 480) {
                             switch (move) {
                                 case 1:
                                     break;
@@ -359,7 +359,6 @@ public class Game extends JFrame implements KeyListener{
                                     wi = 480;
                                     break;
                                 case 3:
-                                    wo = 350;
                                     break;
                                 case 4:
                                     break;
@@ -378,7 +377,7 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                         }
-                        if (700 > wo && wo > 50 && 60 > wi && wi > 50) {
+                        if (740 > wo && wo > 450 && 60 > wi && wi > 50) {
                             switch (move) {
                                 case 1:
                                     wi = 60;
@@ -771,6 +770,9 @@ public class Game extends JFrame implements KeyListener{
                         }
                         head_change = 0;
                         break;
+                    case KeyEvent.VK_K:
+                        head = 3;
+                        break;
                     case KeyEvent.VK_CONTROL:
                         walk_on = 1;
                         break;
@@ -1000,7 +1002,8 @@ public class Game extends JFrame implements KeyListener{
                         break;
                     case dungeon1:
                         g.setColor(Color.GRAY);
-                        g.fillRect(60, 50, 680, 10);
+                        g.fillRect(60, 50, 290, 10);
+                        g.fillRect(450, 50, 290, 10);
                         g.fillRect(60, 50, 10, 480);
                         g.fillRect(730, 50, 10, 480);
                         g.fillRect(60, 520, 680, 10);
