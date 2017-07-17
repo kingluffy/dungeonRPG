@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
 public class Game extends JFrame implements KeyListener{
 
     //window vars
@@ -77,6 +78,19 @@ public class Game extends JFrame implements KeyListener{
     public BufferedImage g_hair;
     public int head = 0;
     public int head_change = 0;
+    public int e_up1 = 350;
+    public int e_over1 = 180;
+    public int e_up2 = 260;
+    public int e_over2 = 560;
+    public int e_up3 = 90;
+    public int e_over3 = 200;
+    public int e1 = 0;
+    public int e2 = 0;
+    public int e3 = 0;
+    public int e_move1 = 0;
+    public int e_move2 = 0;
+    public int e_move3 = 0;
+    public int encounter = 0;
     public enum room{
         shop,
         dungeon1,
@@ -273,11 +287,11 @@ public class Game extends JFrame implements KeyListener{
             i_back = 0;
             show_menu = 0;
         }
-        switch(current_state){
+        switch(current_state) {
             case play_game:
-                switch(current_room) {
+                switch (current_room) {
                     case shop:
-                        if (350 >= wo && wo > 60 && 520 > wi && wi > 480) {
+                        if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
                             switch (move) {
                                 case 1:
                                     break;
@@ -347,7 +361,7 @@ public class Game extends JFrame implements KeyListener{
                         if (420 > wo && wo > 340 && 525 > wi && wi > 485) {
                             current_room = room.dungeon1;
                             wo = 380;
-                            wi = 60;
+                            wi = 55;
                         }
                         break;
                     case dungeon1:
@@ -377,7 +391,7 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                         }
-                        if (740 > wo && wo > 450 && 60 > wi && wi > 50) {
+                        if (740 > wo && wo > 410 && 60 > wi && wi > 50) {
                             switch (move) {
                                 case 1:
                                     wi = 60;
@@ -387,6 +401,7 @@ public class Game extends JFrame implements KeyListener{
                                 case 3:
                                     break;
                                 case 4:
+                                    wo = 410;
                                     break;
                             }
                         }
@@ -417,21 +432,355 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                         }
-                        if (420 > wo && wo > 340 && 60 > wi && wi > 50) {
-                            current_room = room.shop;
-                            wo = 380;
-                            wi = 60;
+                        if (350 > wo && wo > 60 && 60 > wi && wi > 50) {
+                            switch (move) {
+                                case 1:
+                                    wi = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    wo = 350;
+                                    break;
+                                case 4:
+                                    break;
+                            }
                         }
-                        if (400 > wo && wo > 360 && 60 > wi && wi > 30) {
+                        if (450 > wo && wo > 350 && 55 > wi && wi > 30) {
                             current_room = room.shop;
                             wo = 380;
                             wi = 485;
                         }
+                        if (e_move1 == 0) {
+                            e1 = ThreadLocalRandom.current().nextInt(1, 5);
+                            e_move1 = 110;
+                        }
+                        if (e_move2 == 0) {
+                            e2 = ThreadLocalRandom.current().nextInt(1, 5);
+                            e_move2 = 120;
+                        }
+                        if (e_move3 == 0) {
+                            e3 = ThreadLocalRandom.current().nextInt(1, 5);
+                            e_move3 = 115;
+                        }
 
-                        break;
+                        e_move1 = e_move1 - 1;
+                        e_move2 = e_move2 - 1;
+                        e_move3 = e_move3 - 1;
+                        if (e_move1 < 30) {
+                            switch (e1) {
+                                case 1:
+                                    e_up1 = e_up1 - 1;
+                                    break;
+                                case 2:
+                                    e_up1 = e_up1 + 1;
+                                    break;
+                                case 3:
+                                    e_over1 = e_over1 - 1;
+                                    break;
+                                case 4:
+                                    e_over1 = e_over1 + 1;
+                                    break;
+                            }
+                        }
+                        if (e_move2 < 40) {
+                            switch (e2) {
+                                case 1:
+                                    e_up2 = e_up2 - 1;
+                                    break;
+                                case 2:
+                                    e_up2 = e_up2 + 1;
+                                    break;
+                                case 3:
+                                    e_over2 = e_over2 - 1;
+                                    break;
+                                case 4:
+                                    e_over2 = e_over2 + 1;
+                                    break;
+                            }
+                        }
+                        if (e_move3 < 25) {
+                            switch (e3) {
+                                case 1:
+                                    e_up3 = e_up3 - 1;
+                                    break;
+                                case 2:
+                                    e_up3 = e_up3 + 1;
+                                    break;
+                                case 3:
+                                    e_over3 = e_over3 - 1;
+                                    break;
+                                case 4:
+                                    e_over3 = e_over3 + 1;
+                                    break;
+                            }
+                        }
+                        if ((e_over1 + 30) > wo && wo > (e_over1 - 40) && (e_up1 + 30) > wi && wi > (e_up1 - 40)) {
+                            domove = 0;
+                            switch (move) {
+                                case 1:
+                                    wi = wi + 10;
+                                    break;
+                                case 2:
+                                    wi = wi - 10;
+                                    break;
+                                case 3:
+                                    wo = wo + 10;
+                                    break;
+                                case 4:
+                                    wo = wo - 10;
+                                    break;
+                            }
+                            encounter = 1;
+                            current_state = game_state.encounter;
+                        }
+                        if ((e_over2 + 30) > wo && wo > (e_over2 - 40) && (e_up2 + 30) > wi && wi > (e_up2 - 40)) {
+                            domove = 0;
+                            switch (move) {
+                                case 1:
+                                    wi = wi + 10;
+                                    break;
+                                case 2:
+                                    wi = wi - 10;
+                                    break;
+                                case 3:
+                                    wo = wo + 10;
+                                    break;
+                                case 4:
+                                    wo = wo - 10;
+                                    break;
+                            }
+                            encounter = 2;
+                            current_state = game_state.encounter;
+                        }
+                        if ((e_over3 + 30) > wo && wo > (e_over3 - 40) && (e_up3 + 30) > wi && wi > (e_up3 - 40)) {
+                            domove = 0;
+                            switch (move) {
+                                case 1:
+                                    wi = wi + 10;
+                                    break;
+                                case 2:
+                                    wi = wi - 10;
+                                    break;
+                                case 3:
+                                    wo = wo + 10;
+                                    break;
+                                case 4:
+                                    wo = wo - 10;
+                                    break;
+                            }
+                            encounter = 3;
+                            current_state = game_state.encounter;
+                        }
+                        //enemy1
+                        if (740 > e_over1 && e_over1 > 60 && 520 > e_up1 && e_up1 > 490) {
+                            switch (e1) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    e_up1 = 490;
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (70 > e_over1 && e_over1 > 20 && 520 > e_up1 && e_up1 > 40) {
+                            switch (e1) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    e_over1 = 70;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (740 > e_over1 && e_over1 > 60 && 60 > e_up1 && e_up1 > 50) {
+                            switch (e1) {
+                                case 1:
+                                    e_up1 = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    e_over1 = 410;
+                                    break;
+                            }
+                        }
+                        if (350 > e_over1 && e_over1 > 60 && 60 > e_up1 && e_up1 > 50) {
+                            switch (e1) {
+                                case 1:
+                                    e_up1 = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    e_over1 = 350;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (740 > e_over1 && e_over1 > 690 && 530 > e_up1 && e_up1 > 50) {
+                            switch (e1) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    e_over1 = 690;
+                                    break;
+                            }
+                        }
+                        //enemy2
+                        if (740 > e_over2 && e_over2 > 60 && 520 > e_up2 && e_up2 > 490) {
+                            switch (e2) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    e_up2 = 490;
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (70 > e_over2 && e_over2 > 20 && 520 > e_up2 && e_up2 > 40) {
+                            switch (e2) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    e_over2 = 70;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (740 > e_over2 && e_over2 > 60 && 60 > e_up2 && e_up2 > 50) {
+                            switch (e2) {
+                                case 1:
+                                    e_up2 = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    e_over2 = 410;
+                                    break;
+                            }
+                        }
+                        if (350 > e_over2 && e_over2 > 60 && 60 > e_up2 && e_up2 > 50) {
+                            switch (e2) {
+                                case 1:
+                                    e_up2 = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    e_over2 = 350;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (740 > e_over2 && e_over2 > 690 && 530 > e_up2 && e_up2 > 50) {
+                            switch (e2) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    e_over2 = 690;
+                                    break;
+                            }
+                        }
+                        //enemy3
+                        if (740 > e_over3 && e_over3 > 60 && 520 > e_up3 && e_up3 > 490) {
+                            switch (e3) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    e_up3 = 490;
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (70 > e_over3 && e_over3 > 20 && 520 > e_up3 && e_up3 > 40) {
+                            switch (e3) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    e_over3 = 70;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (740 > e_over3 && e_over3 > 60 && 60 > e_up3 && e_up3 > 50) {
+                            switch (e3) {
+                                case 1:
+                                    e_up3 = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    e_over3 = 410;
+                                    break;
+                            }
+                        }
+                        if (350 > e_over3 && e_over3 > 60 && 60 > e_up3 && e_up3 > 50) {
+                            switch (e2) {
+                                case 1:
+                                    e_up3 = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    e_over3 = 350;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (740 > e_over3 && e_over3 > 690 && 530 > e_up3 && e_up3 > 50) {
+                            switch (e3) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    e_over3 = 690;
+                                    break;
+                            }
+                        }
                 }
+                break;
         }
-    }
+        }
+
 
 
 
@@ -776,9 +1125,6 @@ public class Game extends JFrame implements KeyListener{
                     case KeyEvent.VK_CONTROL:
                         walk_on = 1;
                         break;
-                    case KeyEvent.VK_MINUS:
-                        current_state = game_state.encounter;
-                        break;
                     case KeyEvent.VK_ESCAPE:
                         current_state = game_state.menu;
                         break;
@@ -1007,6 +1353,15 @@ public class Game extends JFrame implements KeyListener{
                         g.fillRect(60, 50, 10, 480);
                         g.fillRect(730, 50, 10, 480);
                         g.fillRect(60, 520, 680, 10);
+                        g.setColor(Color.white);
+                        g.fillRect(350, 50, 100, 5);
+                        g.setColor(Color.red);
+                        g.fillRect(e_over1, e_up1, 30, 30);
+                        g.setColor(Color.orange);
+                        g.fillRect(e_over2, e_up2, 30, 30);
+                        g.setColor(Color.yellow);
+                        g.fillRect(e_over3, e_up3, 30, 30);
+
                         break;
                 }
                 g.setColor(Color.white);
@@ -1097,6 +1452,40 @@ public class Game extends JFrame implements KeyListener{
 
                 g.setColor(Color.black);
                 g.drawString(Integer.toString(hp) + "/100", 650, 523);
+                switch (encounter){
+                    case 3:
+                        g.setColor(Color.white);
+                        g.setFont(font6);
+                        g.fillRect(155,498,315, 34);
+
+                        g.setFont(font3);
+                        g.setColor(Color.black);
+                        g.drawString("slime", 160, 522);
+
+                        g.setColor(Color.gray);
+                        g.fillRect(257,501,206, 28);
+
+                        if(hp >= 71) {
+                            g.setColor(Color.green);
+                        }
+                        if(hp <= 70 && hp >= 31){
+                            g.setColor(Color.yellow);
+                        }
+                        if(hp <= 30){
+                            g.setColor(Color.red);
+                        }
+
+                        g.fillRect(260,504,(int)hp*2, 22);
+
+                        g.setColor(Color.black);
+                        g.drawString(Integer.toString(hp) + "/100", 350, 523);
+                        break;
+                }
+
+
+
+
+
 
                 break;
             case end:
