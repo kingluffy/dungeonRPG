@@ -72,7 +72,7 @@ public class Game extends JFrame implements KeyListener{
     public int i_back = 0;
     public int walk_on = 0;
     public int debug = 0;
-    public int gold = 100;
+    public int gold = 0;
     public int bugde = 40;
     public BufferedImage hair;
     public BufferedImage g_hair;
@@ -91,6 +91,20 @@ public class Game extends JFrame implements KeyListener{
     public int e_move2 = 0;
     public int e_move3 = 0;
     public int encounter = 0;
+    public int e_hp = 0;
+    public int fe_hp = 0;
+    public int atkl = 3;
+    public int atkh = 8;
+    public int attack = 0;
+    public int def = 0;
+    public int e_def;
+    public int xp = 0;
+    public int despawn1 = 0;
+    public int despawn2 = 0;
+    public int despawn3 = 0;
+    public int turn = 1;
+    public int e_attack = 0;
+    public int b_lag = 0;
     public enum room{
         shop,
         dungeon1,
@@ -239,6 +253,13 @@ public class Game extends JFrame implements KeyListener{
         if(b_up == 550 && b_over == 230){
             b_but = 4;
         }
+        if(current_state == game_state.encounter && select == 1 &&  b_but == 1){
+            attack = ThreadLocalRandom.current().nextInt(atkl, atkh + 1);
+            e_hp = e_hp - (attack - e_def);
+            select = 0;
+            b_lag = 30;
+            turn = 2;
+        }
         if(current_state == game_state.encounter && select == 1 &&  b_but == 4){
             current_state = game_state.play_game;
             b_but = 1;
@@ -289,6 +310,30 @@ public class Game extends JFrame implements KeyListener{
         }
         switch(current_state) {
             case play_game:
+                if(despawn1 != 0){
+                 despawn1 = despawn1 - 1;
+                }
+                if(despawn1 == 1){
+                    despawn1 = 0;
+                    e_up1 = 350;
+                    e_over1 = 180;
+                }
+                if(despawn2 != 0){
+                    despawn2 = despawn2 - 1;
+                }
+                if(despawn2 == 1){
+                    despawn2 = 0;
+                    e_up2 = 260;
+                    e_over2 = 560;
+                }
+                if(despawn3 == 1){
+                    despawn3 = 0;
+                    e_up3 = 90;
+                    e_over3 = 200;
+                }
+                if(despawn3 != 0){
+                    despawn3 = despawn3 - 1;
+                }
                 switch (current_room) {
                     case shop:
                         if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
@@ -532,6 +577,9 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                             encounter = 1;
+                            e_hp = ThreadLocalRandom.current().nextInt(60, 75 + 1);
+                            e_def = ThreadLocalRandom.current().nextInt(6, 10 + 1);
+                            fe_hp = e_hp;
                             current_state = game_state.encounter;
                         }
                         if ((e_over2 + 30) > wo && wo > (e_over2 - 40) && (e_up2 + 30) > wi && wi > (e_up2 - 40)) {
@@ -551,6 +599,9 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                             encounter = 2;
+                            e_hp = ThreadLocalRandom.current().nextInt(40, 55 + 1);
+                            e_def = ThreadLocalRandom.current().nextInt(3, 6 + 1);
+                            fe_hp = e_hp;
                             current_state = game_state.encounter;
                         }
                         if ((e_over3 + 30) > wo && wo > (e_over3 - 40) && (e_up3 + 30) > wi && wi > (e_up3 - 40)) {
@@ -570,6 +621,9 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                             encounter = 3;
+                            e_hp = ThreadLocalRandom.current().nextInt(20, 30 + 1);
+                            e_def = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                            fe_hp = e_hp;
                             current_state = game_state.encounter;
                         }
                         //enemy1
@@ -776,6 +830,45 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                         }
+                }
+                break;
+            case encounter:
+                if (turn == 2){
+                    click = 0;
+                    if(b_lag == 0) {
+                        switch (encounter) {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                e_attack = ThreadLocalRandom.current().nextInt(1, 5 + 1);
+                                hp = hp - (e_attack - def);
+                                turn = 1;
+                                break;
+                        }
+                    }
+                    if(b_lag != 0){
+                     b_lag = b_lag - 1;
+                    }
+                }
+                if(turn == 1){
+                    click = 1;
+                }
+                if(e_hp <= 0){
+                    switch (encounter) {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            despawn3 = 500;
+                            e_up3 = 9000;
+                            e_over3 = 9000;
+                            gold = gold + ThreadLocalRandom.current().nextInt(5, 10 + 1);
+                            xp = xp + ThreadLocalRandom.current().nextInt(5, 10);
+                            current_state = game_state.play_game;
+                    }
                 }
                 break;
         }
@@ -1334,7 +1427,8 @@ public class Game extends JFrame implements KeyListener{
                 g.setColor(Color.yellow);
                 g.setFont(font5);
                 g.drawString(Integer.toString(gold) + "g", 95, 580);
-
+                g.setColor(Color.cyan);
+                g.drawString(Integer.toString(xp) + "xp", 170, 580);
                 switch(current_room) {
                     case shop:
                         g.setColor(Color.GRAY);
@@ -1369,6 +1463,9 @@ public class Game extends JFrame implements KeyListener{
                 if(debug == 1) {
                     g.drawString("wo: " + Integer.toString(wo), 325, 50);
                     g.drawString("wi: " + Integer.toString(wi), 425, 50);
+                    g.drawString(Integer.toString(despawn1), 300, 580);
+                    g.drawString(Integer.toString(despawn2), 400, 580);
+                    g.drawString(Integer.toString(despawn3), 500, 580);
                 }
                 break;
             case encounter:
@@ -1378,6 +1475,12 @@ public class Game extends JFrame implements KeyListener{
                 //draw fps
                 g.setColor(Color.GREEN);
                 g.drawString(Long.toString(fps), 10, 40);
+                if (debug == 1){
+                    g.setFont(font4);
+                    g.setColor(Color.white);
+                    g.drawString(Integer.toString(e_def), 500, 100);
+                    g.drawString(Integer.toString(attack), 500, 130);
+                }
                 switch (show_menu){
                     case 0:
                         g.setColor(Color.gray);
@@ -1448,7 +1551,7 @@ public class Game extends JFrame implements KeyListener{
                     g.setColor(Color.red);
                 }
 
-                g.fillRect(560,504,(int)hp*2, 22);
+                g.fillRect(560,504,(int)hp * 2, 22);
 
                 g.setColor(Color.black);
                 g.drawString(Integer.toString(hp) + "/100", 650, 523);
@@ -1456,29 +1559,29 @@ public class Game extends JFrame implements KeyListener{
                     case 3:
                         g.setColor(Color.white);
                         g.setFont(font6);
-                        g.fillRect(155,498,315, 34);
+                        g.fillRect(25,48,315, 34);
 
                         g.setFont(font3);
                         g.setColor(Color.black);
-                        g.drawString("slime", 160, 522);
+                        g.drawString("slime", 30, 72);
 
                         g.setColor(Color.gray);
-                        g.fillRect(257,501,206, 28);
+                        g.fillRect(127,51,206, 28);
 
-                        if(hp >= 71) {
+                        if((e_hp * 10/ fe_hp * 10) >= 71) {
                             g.setColor(Color.green);
                         }
-                        if(hp <= 70 && hp >= 31){
+                        if((e_hp * 10/ fe_hp * 10) <= 70 && (e_hp * 10/ fe_hp * 10) >= 31){
                             g.setColor(Color.yellow);
                         }
-                        if(hp <= 30){
+                        if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
 
-                        g.fillRect(260,504,(int)hp*2, 22);
+                        g.fillRect(130,54,(int)e_hp * (200 / fe_hp), 22);
 
                         g.setColor(Color.black);
-                        g.drawString(Integer.toString(hp) + "/100", 350, 523);
+                        g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
                 }
 
