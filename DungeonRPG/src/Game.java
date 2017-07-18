@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -6,6 +5,7 @@ import javax.swing.JPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.WindowConstants;
+import javax.imageio.ImageIO;
 import java.awt.image.BufferStrategy;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -111,6 +111,8 @@ public class Game extends JFrame implements KeyListener{
     public int addgold = 0;
     public int addatk = 0;
     public int fhp = 50;
+    public int menwait = 0;
+    public int pause = 0;
     public enum room{
         shop,
         dungeon1,
@@ -277,6 +279,20 @@ public class Game extends JFrame implements KeyListener{
             select = 0;
             show_menu = 1;
         }
+        if(current_state == game_state.play_game && show_menu == 1){
+            switch(i_up){
+                case 240:
+                    heal = 1;
+                    break;
+                case 280:
+                    heal = 2;
+                    break;
+                case 320:
+                    heal = 3;
+                    break;
+            }
+        }
+
         if(show_menu == 1 && blink == 1 && heal == 1 && r_heal != 0){
             select = 0;
             blink = 0;
@@ -530,56 +546,59 @@ public class Game extends JFrame implements KeyListener{
                             e3 = ThreadLocalRandom.current().nextInt(1, 5);
                             e_move3 = 115;
                         }
-
-                        e_move1 = e_move1 - 1;
-                        e_move2 = e_move2 - 1;
-                        e_move3 = e_move3 - 1;
-                        if (e_move1 < 30) {
-                            switch (e1) {
-                                case 1:
-                                    e_up1 = e_up1 - 1;
-                                    break;
-                                case 2:
-                                    e_up1 = e_up1 + 1;
-                                    break;
-                                case 3:
-                                    e_over1 = e_over1 - 1;
-                                    break;
-                                case 4:
-                                    e_over1 = e_over1 + 1;
-                                    break;
-                            }
+                        if(pause != 1) {
+                            e_move1 = e_move1 - 1;
+                            e_move2 = e_move2 - 1;
+                            e_move3 = e_move3 - 1;
                         }
-                        if (e_move2 < 40) {
-                            switch (e2) {
-                                case 1:
-                                    e_up2 = e_up2 - 1;
-                                    break;
-                                case 2:
-                                    e_up2 = e_up2 + 1;
-                                    break;
-                                case 3:
-                                    e_over2 = e_over2 - 1;
-                                    break;
-                                case 4:
-                                    e_over2 = e_over2 + 1;
-                                    break;
+                        if(pause != 1) {
+                            if (e_move1 < 30) {
+                                switch (e1) {
+                                    case 1:
+                                        e_up1 = e_up1 - 1;
+                                        break;
+                                    case 2:
+                                        e_up1 = e_up1 + 1;
+                                        break;
+                                    case 3:
+                                        e_over1 = e_over1 - 1;
+                                        break;
+                                    case 4:
+                                        e_over1 = e_over1 + 1;
+                                        break;
+                                }
                             }
-                        }
-                        if (e_move3 < 25) {
-                            switch (e3) {
-                                case 1:
-                                    e_up3 = e_up3 - 1;
-                                    break;
-                                case 2:
-                                    e_up3 = e_up3 + 1;
-                                    break;
-                                case 3:
-                                    e_over3 = e_over3 - 1;
-                                    break;
-                                case 4:
-                                    e_over3 = e_over3 + 1;
-                                    break;
+                            if (e_move2 < 40) {
+                                switch (e2) {
+                                    case 1:
+                                        e_up2 = e_up2 - 1;
+                                        break;
+                                    case 2:
+                                        e_up2 = e_up2 + 1;
+                                        break;
+                                    case 3:
+                                        e_over2 = e_over2 - 1;
+                                        break;
+                                    case 4:
+                                        e_over2 = e_over2 + 1;
+                                        break;
+                                }
+                            }
+                            if (e_move3 < 25) {
+                                switch (e3) {
+                                    case 1:
+                                        e_up3 = e_up3 - 1;
+                                        break;
+                                    case 2:
+                                        e_up3 = e_up3 + 1;
+                                        break;
+                                    case 3:
+                                        e_over3 = e_over3 - 1;
+                                        break;
+                                    case 4:
+                                        e_over3 = e_over3 + 1;
+                                        break;
+                                }
                             }
                         }
                         if ((e_over1 + 30) > wo && wo > (e_over1 - 40) && (e_up1 + 30) > wi && wi > (e_up1 - 40)) {
@@ -1215,23 +1234,39 @@ public class Game extends JFrame implements KeyListener{
                 break;
             case play_game:
                 switch (w.getKeyCode()) {
-
                     case KeyEvent.VK_W:
-                        move = 1;
-                        domove = 1;
+                        if (show_menu != 1) {
+                            move = 1;
+                            domove = 1;
+                        }else{
+                            if(i_up != 240){
+                             i_up = i_up - 40;
+                            }
+                        }
                         break;
                     case KeyEvent.VK_S:
-                        move = 2;
-                        domove = 1;
+                        if (show_menu != 1) {
+                            move = 2;
+                            domove = 1;
+                        }else {
+                            if (i_up != 320) {
+                                i_up = i_up + 40;
+                            }
+                        }
                         break;
                     case KeyEvent.VK_A:
-                        move = 3;
-                        domove = 1;
+                        if (show_menu != 1) {
+                            move = 3;
+                            domove = 1;
+                        }
                         break;
                     case KeyEvent.VK_D:
-                        move = 4;
-                        domove = 1;
+                        if (show_menu != 1) {
+                            move = 4;
+                            domove = 1;
+                        }
                         break;
+
                     case KeyEvent.VK_H:
                         if(head == 0 && head_change == 0) {
                             head = 1;
@@ -1252,7 +1287,28 @@ public class Game extends JFrame implements KeyListener{
                     case KeyEvent.VK_ESCAPE:
                         current_state = game_state.menu;
                         break;
-
+                    case KeyEvent.VK_I:
+                        if (show_menu == 0) {
+                            move = 0;
+                            show_menu = 1;
+                            domove = 0;
+                            i_up = 240;
+                            i_over = 260;
+                            select = 0;
+                            pause = 1;
+                            menwait = 1;
+                        }
+                        if (show_menu == 1 && menwait == 0){
+                            walk_on = 0;
+                            domove = 1;
+                            pause = 0;
+                            show_menu = 0;
+                        }
+                        menwait = 0;
+                        break;
+                    case KeyEvent.VK_ENTER:
+                        select = 5;
+                        break;
                 }
                 break;
             case encounter:
@@ -1381,29 +1437,31 @@ public class Game extends JFrame implements KeyListener{
                 }
                 break;
             case play_game:
-                switch (w.getKeyCode()) {
-                    case KeyEvent.VK_W:
-                        if (move == 1) {
-                            domove = 0;
-                        }
-                        break;
-                    case KeyEvent.VK_S:
-                        if (move == 2) {
-                            domove = 0;
-                        }
-                        break;
-                    case KeyEvent.VK_A:
-                        if (move == 3) {
-                            domove = 0;
-                        }
-                        break;
-                    case KeyEvent.VK_D:
-                        if (move == 4) {
-                            domove = 0;
-                        }
-                        break;
-                    case KeyEvent.VK_CONTROL:
-                        walk_on = 0;
+                if (show_menu != 1) {
+                    switch (w.getKeyCode()) {
+                        case KeyEvent.VK_W:
+                            if (move == 1) {
+                                domove = 0;
+                            }
+                            break;
+                        case KeyEvent.VK_S:
+                            if (move == 2) {
+                                domove = 0;
+                            }
+                            break;
+                        case KeyEvent.VK_A:
+                            if (move == 3) {
+                                domove = 0;
+                            }
+                            break;
+                        case KeyEvent.VK_D:
+                            if (move == 4) {
+                                domove = 0;
+                            }
+                            break;
+                        case KeyEvent.VK_CONTROL:
+                            walk_on = 0;
+                    }
                 }
                 break;
         }
@@ -1484,10 +1542,12 @@ public class Game extends JFrame implements KeyListener{
                 g.setColor(Color.white);
                 g.drawString("lvl." + Integer.toString(lvl), 20, 580);
                 g.setColor(Color.cyan);
-                if( 0 == 0) {
                     g.setFont(font3);
                     g.drawString("xp needed: " + Integer.toString(lvlxp - xp), 170, 590);
-                }
+                g.setFont(font5);
+                g.setColor(Color.red);
+                g.drawString("hp " + Integer.toString(hp) + "/" + Integer.toString(fhp), 700, 580);
+
                 switch(current_room) {
                     case shop:
                         g.setColor(Color.GRAY);
@@ -1514,8 +1574,8 @@ public class Game extends JFrame implements KeyListener{
                         g.fillRect(e_over2, e_up2, 30, 30);
                         g.setColor(Color.yellow);
                         g.fillRect(e_over3, e_up3, 30, 30);
-
                         break;
+
                 }
                 g.setColor(Color.white);
                 g.setFont(font4);
@@ -1525,6 +1585,29 @@ public class Game extends JFrame implements KeyListener{
                     g.drawString(Integer.toString(despawn1), 300, 580);
                     g.drawString(Integer.toString(despawn2), 400, 580);
                     g.drawString(Integer.toString(despawn3), 500, 580);
+                }
+                if(show_menu == 1){
+                    g.setColor(Color.white);
+                    g.fillRect(245, 220, 310, 160);
+                    g.setColor(Color.black);
+                    g.fillRect(250, 225, 300, 150);
+                    g.setColor(Color.red);
+                    g.fillRect((int) i_over, (int) i_up, 10, 20);
+                    g.setColor(Color.white);
+                    g.setFont(font6);
+                    g.drawString("Red Potion x" + Integer.toString(r_heal), 290, 275);
+                    g.drawString("Blue Potion x" + Integer.toString(b_heal), 290, 315);
+                    g.drawString("Green Potion x" + Integer.toString(g_heal), 290, 355);
+                    g.setColor(Color.red);
+                    g.fillRect((int)i_over, (int)i_up, 20, 30);
+                    if (select > 0) {
+                        g.setColor(Color.white);
+                        g.fillRect((int) i_over, (int) i_up, 250, 30);
+                        select = select - 1;
+                        if (select == 1){
+                            blink = 1;
+                        }
+                    }
                 }
                 break;
             case encounter:
