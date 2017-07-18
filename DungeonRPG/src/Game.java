@@ -360,16 +360,19 @@ public class Game extends JFrame implements KeyListener{
                 }
                 if(despawn1 == 1 ||despawn1 == 2 ){
                     despawn1 = 0;
+                    e_move1 = 30;
                     e_up1 = 350;
                     e_over1 = 180;
                 }
                 if(despawn2 == 1 || despawn2 == 2){
                     despawn2 = 0;
+                    e_move2 = 45;
                     e_up2 = 260;
                     e_over2 = 560;
                 }
                 if(despawn3 == 1 || despawn3 == 2){
                     despawn3 = 0;
+                    e_move3 = 25;
                     e_up3 = 90;
                     e_over3 = 200;
                 }
@@ -620,8 +623,8 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                             encounter = 1;
-                            e_hp = ThreadLocalRandom.current().nextInt(60, 75 + 1);
-                            e_def = ThreadLocalRandom.current().nextInt(6, 10 + 1);
+                            e_hp = ThreadLocalRandom.current().nextInt(60, 90 + 1);
+                            e_def = ThreadLocalRandom.current().nextInt(5, 9 + 1);
                             fe_hp = e_hp;
                             current_state = game_state.encounter;
                         }
@@ -642,8 +645,8 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                             encounter = 2;
-                            e_hp = ThreadLocalRandom.current().nextInt(40, 55 + 1);
-                            e_def = ThreadLocalRandom.current().nextInt(3, 6 + 1);
+                            e_hp = ThreadLocalRandom.current().nextInt(30, 60 + 1);
+                            e_def = ThreadLocalRandom.current().nextInt(2, 5 + 1);
                             fe_hp = e_hp;
                             current_state = game_state.encounter;
                         }
@@ -664,8 +667,8 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                             encounter = 3;
-                            e_hp = ThreadLocalRandom.current().nextInt(20, 30 + 1);
-                            e_def = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+                            e_hp = ThreadLocalRandom.current().nextInt(15, 30 + 1);
+                            e_def = ThreadLocalRandom.current().nextInt(0, 2 + 1);
                             fe_hp = e_hp;
                             current_state = game_state.encounter;
                         }
@@ -881,9 +884,16 @@ public class Game extends JFrame implements KeyListener{
                     if(b_lag == 0) {
                         switch (encounter) {
                             case 1:
+                                e_attack = ThreadLocalRandom.current().nextInt(9, 13 + 1);
+                                if(e_attack < def){
+                                    hp = hp - 1;
+                                }else{
+                                    hp = (hp - (e_attack - def));
+                                }
+                                turn = 1;
                                 break;
                             case 2:
-                                e_attack = ThreadLocalRandom.current().nextInt(3, 8 + 1);
+                                e_attack = ThreadLocalRandom.current().nextInt(4, 8 + 1);
                                 if(e_attack < def){
                                     hp = hp - 1;
                                 }else{
@@ -912,8 +922,28 @@ public class Game extends JFrame implements KeyListener{
                 if(e_hp <= 0 && show_menu != 2 && show_menu != 3){
                     switch (encounter) {
                         case 1:
+                            turn = 0;
+                            e_hp = 0;
+                            despawn3 = 500;
+                            e_up3 = 9000;
+                            e_over3 = 9000;
+                            addgold = ThreadLocalRandom.current().nextInt(50, 100 + 1);
+                            addxp = ThreadLocalRandom.current().nextInt(80, 100);
+                            gold = gold + addgold;
+                            xp = xp + addxp;
+                            show_menu = 2;
                             break;
                         case 2:
+                            turn = 0;
+                            e_hp = 0;
+                            despawn3 = 500;
+                            e_up3 = 9000;
+                            e_over3 = 9000;
+                            addgold = ThreadLocalRandom.current().nextInt(30, 80 + 1);
+                            addxp = ThreadLocalRandom.current().nextInt(20, 50);
+                            gold = gold + addgold;
+                            xp = xp + addxp;
+                            show_menu = 2;
                             break;
                         case 3:
                             turn = 0;
@@ -1711,8 +1741,58 @@ public class Game extends JFrame implements KeyListener{
                 g.drawString(Integer.toString(hp) + "/" + Integer.toString(fhp), 650, 523);
                 switch (encounter){
                     case 1:
+                        g.setColor(Color.white);
+                        g.setFont(font6);
+                        g.fillRect(25,48,315, 34);
+
+                        g.setFont(font3);
+                        g.setColor(Color.black);
+                        g.drawString("even stronger slime", 30, 72);
+
+                        g.setColor(Color.gray);
+                        g.fillRect(127,51,206, 28);
+
+                        if((e_hp * 10/ fe_hp * 10) >= 71) {
+                            g.setColor(Color.green);
+                        }
+                        if((e_hp * 10/ fe_hp * 10) <= 70 && (e_hp * 10/ fe_hp * 10) >= 31){
+                            g.setColor(Color.yellow);
+                        }
+                        if((e_hp * 10/ fe_hp * 10) <= 30){
+                            g.setColor(Color.red);
+                        }
+
+                        g.fillRect(130,54,(int)e_hp * (200 / fe_hp), 22);
+
+                        g.setColor(Color.black);
+                        g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
                     case 2:
+                        g.setColor(Color.white);
+                        g.setFont(font6);
+                        g.fillRect(25,48,315, 34);
+
+                        g.setFont(font3);
+                        g.setColor(Color.black);
+                        g.drawString("stronger slime", 30, 72);
+
+                        g.setColor(Color.gray);
+                        g.fillRect(127,51,206, 28);
+
+                        if((e_hp * 10/ fe_hp * 10) >= 71) {
+                            g.setColor(Color.green);
+                        }
+                        if((e_hp * 10/ fe_hp * 10) <= 70 && (e_hp * 10/ fe_hp * 10) >= 31){
+                            g.setColor(Color.yellow);
+                        }
+                        if((e_hp * 10/ fe_hp * 10) <= 30){
+                            g.setColor(Color.red);
+                        }
+
+                        g.fillRect(130,54,(int)e_hp * (200 / fe_hp), 22);
+
+                        g.setColor(Color.black);
+                        g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
                     case 3:
                         g.setColor(Color.white);
