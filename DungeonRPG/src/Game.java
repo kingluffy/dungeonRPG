@@ -230,7 +230,7 @@ public class Game extends JFrame implements KeyListener{
             }
             wo = wo+1;
         }
-        if(hp == 0){
+        if(hp == 0 || hp < 0){
             current_state = game_state.end;
         }
         if(select != 0){
@@ -277,6 +277,8 @@ public class Game extends JFrame implements KeyListener{
         }
         if(current_state == game_state.encounter && select == 1 &&  b_but == 2){
             select = 0;
+            i_up = 0;
+            i_over = 15;
             show_menu = 1;
         }
         if(current_state == game_state.play_game && show_menu == 1){
@@ -663,7 +665,7 @@ public class Game extends JFrame implements KeyListener{
                             }
                             encounter = 3;
                             e_hp = ThreadLocalRandom.current().nextInt(20, 30 + 1);
-                            e_def = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                            e_def = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                             fe_hp = e_hp;
                             current_state = game_state.encounter;
                         }
@@ -881,6 +883,13 @@ public class Game extends JFrame implements KeyListener{
                             case 1:
                                 break;
                             case 2:
+                                e_attack = ThreadLocalRandom.current().nextInt(3, 8 + 1);
+                                if(e_attack < def){
+                                    hp = hp - 1;
+                                }else{
+                                    hp = (hp - (e_attack - def));
+                                }
+                                turn = 1;
                                 break;
                             case 3:
                                 e_attack = ThreadLocalRandom.current().nextInt(1, 5 + 1);
@@ -1385,6 +1394,7 @@ public class Game extends JFrame implements KeyListener{
                                             break;
                                         case 567:
                                             select = 5;
+                                            heal = 0;
                                             i_back = 1;
                                             break;
                                     }
@@ -1594,10 +1604,10 @@ public class Game extends JFrame implements KeyListener{
                     g.setColor(Color.red);
                     g.fillRect((int) i_over, (int) i_up, 10, 20);
                     g.setColor(Color.white);
-                    g.setFont(font6);
-                    g.drawString("Red Potion x" + Integer.toString(r_heal), 290, 275);
-                    g.drawString("Blue Potion x" + Integer.toString(b_heal), 290, 315);
-                    g.drawString("Green Potion x" + Integer.toString(g_heal), 290, 355);
+                        g.setFont(font6);
+                        g.drawString("Red Potion x" + Integer.toString(r_heal), 290, 275);
+                        g.drawString("Blue Potion x" + Integer.toString(b_heal), 290, 315);
+                        g.drawString("Green Potion x" + Integer.toString(g_heal), 290, 355);
                     g.setColor(Color.red);
                     g.fillRect((int)i_over, (int)i_up, 20, 30);
                     if (select > 0) {
@@ -1617,14 +1627,6 @@ public class Game extends JFrame implements KeyListener{
                 //draw fps
                 g.setColor(Color.GREEN);
                 g.drawString(Long.toString(fps), 10, 40);
-                if (debug == 1){
-                    g.setFont(font4);
-                    g.setColor(Color.white);
-                    g.drawString("e_def:" + Integer.toString(e_def), 500, 100);
-                    g.drawString("attack:" + Integer.toString(attack), 500, 130);
-                    g.drawString("def:" + Integer.toString(def), 500, 160);
-                    g.drawString("e_attack:" + Integer.toString(e_attack), 500, 190);
-                }
                 switch (show_menu){
                     case 0:
                         g.setColor(Color.gray);
@@ -1708,6 +1710,10 @@ public class Game extends JFrame implements KeyListener{
                 g.setColor(Color.black);
                 g.drawString(Integer.toString(hp) + "/" + Integer.toString(fhp), 650, 523);
                 switch (encounter){
+                    case 1:
+                        break;
+                    case 2:
+                        break;
                     case 3:
                         g.setColor(Color.white);
                         g.setFont(font6);
@@ -1735,6 +1741,14 @@ public class Game extends JFrame implements KeyListener{
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
+                }
+                if (debug == 1){
+                    g.setFont(font4);
+                    g.setColor(Color.white);
+                    g.drawString("e_def:" + Integer.toString(e_def), 500, 100);
+                    g.drawString("attack:" + Integer.toString(attack), 500, 130);
+                    g.drawString("def:" + Integer.toString(def), 500, 160);
+                    g.drawString("e_attack:" + Integer.toString(e_attack), 500, 190);
                 }
                 break;
             case end:
