@@ -924,9 +924,9 @@ public class Game extends JFrame implements KeyListener{
                         case 1:
                             turn = 0;
                             e_hp = 0;
-                            despawn3 = 500;
-                            e_up3 = 9000;
-                            e_over3 = 9000;
+                            despawn1 = 500;
+                            e_up1 = 9000;
+                            e_over1 = 9000;
                             addgold = ThreadLocalRandom.current().nextInt(50, 100 + 1);
                             addxp = ThreadLocalRandom.current().nextInt(80, 100);
                             gold = gold + addgold;
@@ -936,9 +936,9 @@ public class Game extends JFrame implements KeyListener{
                         case 2:
                             turn = 0;
                             e_hp = 0;
-                            despawn3 = 500;
-                            e_up3 = 9000;
-                            e_over3 = 9000;
+                            despawn2 = 500;
+                            e_up2 = 9000;
+                            e_over2 = 9000;
                             addgold = ThreadLocalRandom.current().nextInt(30, 80 + 1);
                             addxp = ThreadLocalRandom.current().nextInt(20, 50);
                             gold = gold + addgold;
