@@ -534,7 +534,7 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                         }
-                        if (450 > wo && wo > 350 && 55 > wi && wi > 30) {
+                        if (415 > wo && wo > 345 && 55 > wi && wi > 30) {
                             current_room = room.shop;
                             wo = 380;
                             wi = 485;
