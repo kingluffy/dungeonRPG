@@ -305,6 +305,9 @@ public class Game extends JFrame implements KeyListener{
             turn = 2;
             potion = 0;
         }
+        if(current_state == game_state.encounter && select == 1 &&  b_but == 3){
+            show_menu = 8;
+        }
         if(current_state == game_state.encounter && select == 1 &&  b_but == 4){
             current_state = game_state.play_game;
             b_but = 1;
@@ -1782,6 +1785,9 @@ public class Game extends JFrame implements KeyListener{
                                         show_menu = 0;
                                         current_state = game_state.play_game;
                                     }
+                                    if (lvl == 10){
+                                        show_menu = 9;
+                                    }
                                     break;
                                 case 3:
                                     show_menu = 0;
@@ -2229,6 +2235,17 @@ public class Game extends JFrame implements KeyListener{
                         g.setFont(font5);
                         g.drawString("*you spill the drink all over the annoying guard's computer", 145, 520);
                         g.drawString("and he gets so angry he leaves, allowing you to pass*", 145, 540);
+                        break;
+                    case 8:
+                        break;
+                    case 9:
+                        g.setColor(Color.white);
+                        g.fillRect(130, 485, 540, 70);
+                        g.setColor(Color.black);
+                        g.fillRect(135, 490, 530, 60);
+                        g.setColor(Color.white);
+                        g.setFont(font5);
+                        g.drawString("*you spill the drink all over the annoying guard's computer", 145, 520);
                         break;
                 }
                 break;
