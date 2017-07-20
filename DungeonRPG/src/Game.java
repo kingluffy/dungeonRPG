@@ -119,6 +119,8 @@ public class Game extends JFrame implements KeyListener{
     public int menu_up = 170;
     public int spawntime = 500;
     public int m_up2 = 0;
+    public int msl = 100;
+    public int m_back = 0;
     public enum room{
         shop,
         dungeon1,
@@ -421,6 +423,40 @@ public class Game extends JFrame implements KeyListener{
                             pause = 1;
                             select = 0;
                             openshop = 0;
+                        }
+                        if(menu_up == 165){
+                            m_back = 1;
+                        }
+                        if(show_menu == 4 && blink == 1){
+                            if(menu_up == 165){
+                                blink = 0;
+                                show_menu = 0;
+                                pause = 0;
+                                domove = 1;
+                            }
+                            switch(m_item){
+                                case 1:
+                                    if(gold >= 30){
+                                        gold = gold - 30;
+                                        r_heal = r_heal + 1;
+                                        blink = 0;
+                                    }
+                                    break;
+                                case 2:
+                                    if(gold >= 80){
+                                        gold = gold - 80;
+                                        b_heal = b_heal + 1;
+                                        blink = 0;
+                                    }
+                                    break;
+                                case 3:
+                                    if(gold >= 150){
+                                        gold = gold - 150;
+                                        g_heal = g_heal + 1;
+                                        blink = 0;
+                                    }
+                                    break;
+                            }
                         }
                         if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
                             switch (move) {
@@ -1349,7 +1385,7 @@ public class Game extends JFrame implements KeyListener{
                                 }
                                 break;
                                 case 4:
-                                    if (menu_up != 410 && menu_up!= 165){
+                                    if (menu_up != 440 && menu_up!= 165){
                                         menu_up = menu_up + 30;
                                         m_up2 = m_up2 + 30;
                                         m_item = m_item + 1;
@@ -1422,6 +1458,9 @@ public class Game extends JFrame implements KeyListener{
                         break;
                     case KeyEvent.VK_ENTER:
                         if(show_menu == 1) {
+                            select = 5;
+                        }
+                        if(show_menu == 4) {
                             select = 5;
                         }
                         break;
@@ -1750,10 +1789,10 @@ public class Game extends JFrame implements KeyListener{
                     break;
                     case 4:
                         g.setColor(Color.white);
-                        g.fillRect(215, 145, 370, 315);
+                        g.fillRect(215, 140, 370, 340);
                         g.fillRect(145, 485, 510, 70);
                         g.setColor(Color.black);
-                        g.fillRect(220, 150, 360, 305);
+                        g.fillRect(220, 145, 360, 330);
                         g.fillRect(150, 490, 500, 60);
                         g.setColor(Color.white);
                         g.setFont(font9);
@@ -1766,16 +1805,64 @@ public class Game extends JFrame implements KeyListener{
                         g.drawString("vanilla bean coolata", 250, 380);
                         g.drawString("decrease spawn time", 250, 410);
                         g.drawString("instant heal", 250, 440);
+                        g.drawString("gold multiplier", 250, 470);
                         g.setColor(Color.red);
                         g.fillRect((int) i_over, (int) menu_up, 15, 25);
                         if (select > 0) {
+                            switch (m_item){
+                                case 1 :
+                                     msl = 160;
+                                     break;
+                                case 2 :
+                                    msl = 162;
+                                    break;
+                                case 3 :
+                                    msl = 175;
+                                    break;
+                                case 4 :
+                                    msl = 165;
+                                    break;
+                                case 5 :
+                                    msl = 90;
+                                    break;
+                                case 6 :
+                                    msl = 120;
+                                    break;
+                                case 7 :
+                                    msl = 265;
+                                    break;
+                                case 8 :
+                                    msl = 270;
+                                    break;
+                                case 9 :
+                                    msl = 160;
+                                    break;
+                                case 10 :
+                                    msl = 190;
+                                    break;
+                            }
+                            if(m_back == 1){
+                                msl = 100;
+                            }
                             g.setColor(Color.white);
-                            g.fillRect((int) i_over, (int) menu_up, 250, 30);
+                            g.fillRect((int) i_over, (int) menu_up, msl, 30);
                             select = select - 1;
                             if (select == 1) {
+                                select = 0;
                                 blink = 1;
                             }
                         }
+                        g.setColor(Color.yellow);
+                        g.drawString("30g", 500, 200);
+                        g.drawString("80g", 500, 230);
+                        g.drawString("150g", 500, 260);
+                        g.drawString("1500", 500, 290);
+                        g.drawString("300g", 500, 320);
+                        g.drawString("400g", 500, 350);
+                        g.drawString("5000g", 500, 380);
+                        g.drawString("1000g", 500, 410);
+                        g.drawString("200g", 500, 440);
+                        g.drawString("2000g", 500, 470);
                         g.setFont(font5);
                         g.setColor(Color.white);
                         switch (m_item){
@@ -1805,6 +1892,9 @@ public class Game extends JFrame implements KeyListener{
                                 break;
                             case 9:
                                 g.drawString("*heal all your hp*", 170, 530);
+                                break;
+                            case 10:
+                                g.drawString("*you get more gold and surprisingly, it's not a scam*", 170, 530);
                                 break;
                         }
                         g.drawString("Back", 100, 190);
