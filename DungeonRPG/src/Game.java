@@ -130,18 +130,17 @@ public class Game extends JFrame implements KeyListener{
     public int a_buy = 0;
     public int dprice = 300;
     public int aprice = 400;
-    public int vanilla_bean_coolata = 0;
+    public int vanilla_bean_coolata = 1;
     public int buy4 = 0;
     public int buy7 = 0;
     public int buy8 = 0;
     public int buy10 = 0;
     public int nogold = 1;
+    public int boss_door = 1;
+    public int g_pass = 0;
     public enum room{
         shop,
         dungeon1,
-        upgrades,
-        dungeon2,
-        skills,
         boss
 
     }
@@ -461,7 +460,7 @@ public class Game extends JFrame implements KeyListener{
                             }
                             switch(m_item){
                                 case 1:
-                                    if(gold >= 30){
+                                    if(gold >= 30 && r_heal != 20){
                                         gold = gold - 30;
                                         r_heal = r_heal + 1;
                                         blink = 0;
@@ -471,7 +470,7 @@ public class Game extends JFrame implements KeyListener{
                                     }
                                     break;
                                 case 2:
-                                    if(gold >= 80){
+                                    if(gold >= 80 && b_heal != 20){
                                         gold = gold - 80;
                                         b_heal = b_heal + 1;
                                         blink = 0;
@@ -481,7 +480,7 @@ public class Game extends JFrame implements KeyListener{
                                     }
                                     break;
                                 case 3:
-                                    if(gold >= 150){
+                                    if(gold >= 150 && g_heal != 20){
                                         gold = gold - 150;
                                         g_heal = g_heal + 1;
                                         blink = 0;
@@ -684,17 +683,73 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                         }
-                        if (740 > wo && wo > 690 && 530 > wi && wi > 50) {
+                        if (740 > wo && wo > 690 && 240 > wi && wi > 50) {
+                        switch (move) {
+                            case 1:
+                                wi = 240;
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                wo = 690;
+                                break;
+                        }
+                    }
+                        if (740 > wo && wo > 690 && 500 > wi && wi > 300) {
                             switch (move) {
                                 case 1:
                                     break;
                                 case 2:
+                                    wi = 300;
                                     break;
                                 case 3:
                                     break;
                                 case 4:
                                     wo = 690;
                                     break;
+                            }
+                        }
+                        if (740 > wo && wo > 730 && 350 > wi && wi > 230) {
+                            if (vanilla_bean_coolata == 0) {
+                                show_menu = 5;
+                                domove = 0;
+                                pause = 1;
+                                select = 0;
+                                switch (move) {
+                                    case 1:
+                                        break;
+                                    case 2:
+                                        break;
+                                    case 3:
+                                        break;
+                                    case 4:
+                                        wo = 730;
+                                        break;
+                                }
+                                move = 0;
+                            }
+                            if (vanilla_bean_coolata == 1 && g_pass == 0) {
+                                show_menu = 6;
+                                domove = 0;
+                                pause = 1;
+                                select = 0;
+                                switch (move) {
+                                    case 1:
+                                        break;
+                                    case 2:
+                                        break;
+                                    case 3:
+                                        break;
+                                    case 4:
+                                        wo = 730;
+                                        break;
+                                }
+                                move = 0;
+                            }
+                            if (vanilla_bean_coolata == 1 && g_pass == 1){
+                                current_room = room.boss;
                             }
                         }
                         if (740 > wo && wo > 410 && 530 > wi && wi > 480) {
@@ -1575,6 +1630,14 @@ public class Game extends JFrame implements KeyListener{
                         if(show_menu == 4) {
                             select = 5;
                         }
+                        if(show_menu == 5) {
+                            show_menu = 0;
+                            pause = 0;
+                            domove = 1;
+                        }
+                        if(show_menu == 6){
+                            show_menu = 7;
+                        }
                         break;
                 }
                 break;
@@ -1716,6 +1779,7 @@ public class Game extends JFrame implements KeyListener{
                         xp = 0;
                         gold = 0;
                         Player_name = Player_name2;
+                        Name_length = 0;
                         current_state = game_state.menu;
                 }
         }
@@ -1865,7 +1929,16 @@ public class Game extends JFrame implements KeyListener{
                         g.fillRect(60, 50, 290, 10);
                         g.fillRect(450, 50, 290, 10);
                         g.fillRect(60, 50, 10, 480);
-                        g.fillRect(730, 50, 10, 480);
+                        g.fillRect(730, 50, 10, 190);
+                        g.fillRect(730, 230, 45, 10);
+                        g.fillRect(730, 340, 45, 10);
+                        if(boss_door == 1) {
+                            g.fillRect(775, 230, 10, 120);
+                        }
+                        g.setColor(Color.white);
+                        g.fillRect(770, 240, 5, 100);
+                        g.setColor(Color.GRAY);
+                        g.fillRect(730, 340, 10, 190);
                         g.fillRect(60, 520, 680, 10);
                         g.setColor(Color.white);
                         g.fillRect(350, 50, 100, 5);
@@ -2071,6 +2144,36 @@ public class Game extends JFrame implements KeyListener{
                                 break;
                         }
                         g.drawString("Back", 100, 190);
+                        break;
+                    case 5:
+                        g.setColor(Color.white);
+                        g.fillRect(225, 485, 350, 70);
+                        g.setColor(Color.black);
+                        g.fillRect(230, 490, 340, 60);
+                        g.setColor(Color.white);
+                        g.setFont(font5);
+                        g.drawString("Gaurd: SUCC! I won't let you pass!", 255, 520);
+                        g.drawString("Although... I am a bit thirsty", 255, 540);
+                        break;
+                    case 6:
+                        g.setColor(Color.white);
+                        g.fillRect(225, 485, 350, 70);
+                        g.setColor(Color.black);
+                        g.fillRect(230, 490, 340, 60);
+                        g.setColor(Color.white);
+                        g.setFont(font5);
+                        g.drawString("Gaurd: Y-y-you got me a drink...", 255, 520);
+                        g.drawString("thank you!", 255, 540);
+                        break;
+                    case 7:
+                        g.setColor(Color.white);
+                        g.fillRect(225, 485, 350, 70);
+                        g.setColor(Color.black);
+                        g.fillRect(230, 490, 340, 60);
+                        g.setColor(Color.white);
+                        g.setFont(font5);
+                        g.drawString("Gaurd: Y-y-you got me a drink...", 255, 520);
+                        g.drawString("thank you!", 255, 540);
                         break;
                 }
                 break;
