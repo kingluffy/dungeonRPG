@@ -77,6 +77,9 @@ public class Game extends JFrame implements KeyListener{
     public int bugde = 40;
     public BufferedImage hair;
     public BufferedImage g_hair;
+    public BufferedImage slime;
+    public BufferedImage dontsuemesaur;
+    public BufferedImage anthrax;
     public int head = 0;
     public int head_change = 0;
     public int e_up1 = 350;
@@ -121,6 +124,18 @@ public class Game extends JFrame implements KeyListener{
     public int m_up2 = 0;
     public int msl = 100;
     public int m_back = 0;
+    public int xp_mult = 1;
+    public int gold_mult = 1;
+    public int d_buy = 0;
+    public int a_buy = 0;
+    public int dprice = 300;
+    public int aprice = 400;
+    public int vanilla_bean_coolata = 0;
+    public int buy4 = 0;
+    public int buy7 = 0;
+    public int buy8 = 0;
+    public int buy10 = 0;
+    public int nogold = 1;
     public enum room{
         shop,
         dungeon1,
@@ -171,8 +186,11 @@ public class Game extends JFrame implements KeyListener{
         this.WIDTH = width;
         this.HEIGHT = height;
         try{
-            hair = ImageIO.read(new File("C:\\Users\\IGMAdmin\\IdeaProjects\\DungeonRPG\\super_hair.png"));
-            g_hair = ImageIO.read(new File("C:\\Users\\IGMAdmin\\IdeaProjects\\DungeonRPG\\goku_hair.png"));
+            hair = ImageIO.read(new File("super_hair.png"));
+            g_hair = ImageIO.read(new File("goku_hair.png"));
+            slime = ImageIO.read(new File("slime.png"));
+            dontsuemesaur = ImageIO.read(new File("Humungousaur.png"));
+            anthrax = ImageIO.read(new File("anthrax.png"));
         } catch(IOException e){
             e.printStackTrace();
         }
@@ -424,12 +442,19 @@ public class Game extends JFrame implements KeyListener{
                             select = 0;
                             openshop = 0;
                         }
+                        dprice = 300 + (400 * d_buy);
+                        aprice = 400 + (400 * a_buy);
                         if(menu_up == 165){
                             m_back = 1;
+                        }else{
+                            m_back = 0;
                         }
                         if(show_menu == 4 && blink == 1){
-                            if(menu_up == 165){
+                            if(m_back == 1){
+                                menu_up = 0;
                                 blink = 0;
+                                m_back = 0;
+                                select = 0;
                                 show_menu = 0;
                                 pause = 0;
                                 domove = 1;
@@ -440,6 +465,9 @@ public class Game extends JFrame implements KeyListener{
                                         gold = gold - 30;
                                         r_heal = r_heal + 1;
                                         blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
                                     }
                                     break;
                                 case 2:
@@ -447,6 +475,9 @@ public class Game extends JFrame implements KeyListener{
                                         gold = gold - 80;
                                         b_heal = b_heal + 1;
                                         blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
                                     }
                                     break;
                                 case 3:
@@ -454,9 +485,90 @@ public class Game extends JFrame implements KeyListener{
                                         gold = gold - 150;
                                         g_heal = g_heal + 1;
                                         blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
+                                    }
+                                    break;
+                                case 4:
+                                    if(gold >= 1500 && buy4 == 0){
+                                        gold = gold - 1500;
+                                        xp_mult = 2;
+                                        buy4 = 1;
+                                        blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
+                                    }
+                                    break;
+                                case 5:
+                                    if(gold >= dprice){
+                                        gold = gold - dprice;
+                                        def = def + 1;
+                                        d_buy = d_buy + 1;
+                                        blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
+                                    }
+                                    break;
+                                case 6:
+                                    if(gold >= aprice){
+                                        gold = gold - aprice;
+                                        atkh = atkh + 1;
+                                        atkl = atkl + 1;
+                                        a_buy = a_buy + 1;
+                                        blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
+                                    }
+                                    break;
+                                case 7:
+                                    if(gold >= 5000 && buy7 == 0 && lvl >= 15){
+                                        gold = gold - 5000;
+                                        vanilla_bean_coolata = 1;
+                                        buy7 = 1;
+                                        blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
+                                    }
+                                    break;
+                                case 8:
+                                    if(gold >= 1000 && buy8 == 0){
+                                        gold = gold - 1000;
+                                        spawntime = 250;
+                                        buy8 = 1;
+                                        blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
+                                    }
+                                    break;
+                                case 9:
+                                    if(gold >= 200){
+                                        gold = gold - 200;
+                                        hp = fhp;
+                                        blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
+                                    }
+                                    break;
+                                case 10:
+                                    if(gold >= 2000 && buy10 == 0){
+                                        gold = gold - 2000;
+                                        gold_mult = 2;
+                                        buy10 = 1;
+                                        blink = 0;
+                                        nogold = 0;
+                                    }else{
+                                        nogold = 1;
                                     }
                                     break;
                             }
+                            blink = 0;
                         }
                         if (350 > wo && wo > 60 && 520 > wi && wi > 480) {
                             switch (move) {
@@ -1008,8 +1120,8 @@ public class Game extends JFrame implements KeyListener{
                             e_over1 = 9000;
                             addgold = ThreadLocalRandom.current().nextInt(50, 100 + 1);
                             addxp = ThreadLocalRandom.current().nextInt(80, 100);
-                            gold = gold + addgold;
-                            xp = xp + addxp;
+                            gold = gold + (addgold * gold_mult);
+                            xp = xp + (addxp * xp_mult);
                             show_menu = 2;
                             break;
                         case 2:
@@ -1020,8 +1132,8 @@ public class Game extends JFrame implements KeyListener{
                             e_over2 = 9000;
                             addgold = ThreadLocalRandom.current().nextInt(30, 80 + 1);
                             addxp = ThreadLocalRandom.current().nextInt(20, 50);
-                            gold = gold + addgold;
-                            xp = xp + addxp;
+                            gold = gold + (addgold * gold_mult);
+                            xp = xp + (addxp * xp_mult);
                             show_menu = 2;
                             break;
                         case 3:
@@ -1032,8 +1144,8 @@ public class Game extends JFrame implements KeyListener{
                             e_over3 = 9000;
                             addgold = ThreadLocalRandom.current().nextInt(5, 10 + 1);
                             addxp = ThreadLocalRandom.current().nextInt(5, 10);
-                            gold = gold + addgold;
-                            xp = xp + addxp;
+                            gold = gold + (addgold * gold_mult);
+                            xp = xp + (addxp * xp_mult);
                             show_menu = 2;
                             break;
                     }
@@ -1580,6 +1692,20 @@ public class Game extends JFrame implements KeyListener{
                         current_room = room.shop;
                         wo = 380;
                         wi = 280;
+                        hp = 50;
+                        buy4 = 0;
+                        buy7 = 0;
+                        buy8 = 0;
+                        buy10 = 0;
+                        d_buy = 0;
+                        a_buy = 0;
+                        xp_mult = 1;
+                        gold_mult = 1;
+                        vanilla_bean_coolata = 0;
+                        atkh = 8;
+                        atkl = 3;
+                        def = 0;
+                        spawntime = 500;
                         fe_hp = 50;
                         r_heal = 5;
                         b_heal = 2;
@@ -1762,6 +1888,9 @@ public class Game extends JFrame implements KeyListener{
                     g.drawString(Integer.toString(despawn3), 500, 580);
                     g.drawString("menu_up: " + Integer.toString(menu_up), 500, 50);
                     g.drawString("showmenu: " + Integer.toString(show_menu), 600, 50);
+                    g.drawString("blink: " + Integer.toString(blink), 20, 50);
+                    g.drawString("msl: " + Integer.toString(msl), 100, 50);
+                    g.drawString("nogold: " + Integer.toString(nogold), 170, 50);
                 }
                 switch (show_menu) {
                     case 1:
@@ -1799,13 +1928,29 @@ public class Game extends JFrame implements KeyListener{
                         g.drawString("Red Potion", 250, 200);
                         g.drawString("Blue Potion", 250, 230);
                         g.drawString("Green Potion", 250, 260);
+                        if (buy4 == 1){
+                            g.setColor(Color.gray);
+                        }
                         g.drawString("xp multiplier", 250, 290);
+                        g.setColor(Color.white);
                         g.drawString("armor", 250, 320);
                         g.drawString("weapon", 250, 350);
+                        if (buy7 == 1){
+                            g.setColor(Color.gray);
+                        }
                         g.drawString("vanilla bean coolata", 250, 380);
+                        g.setColor(Color.white);
+                        if (buy8 == 1){
+                            g.setColor(Color.gray);
+                        }
                         g.drawString("decrease spawn time", 250, 410);
+                        g.setColor(Color.white);
                         g.drawString("instant heal", 250, 440);
+                        if (buy10 == 1){
+                            g.setColor(Color.gray);
+                        }
                         g.drawString("gold multiplier", 250, 470);
+                        g.setColor(Color.white);
                         g.setColor(Color.red);
                         g.fillRect((int) i_over, (int) menu_up, 15, 25);
                         if (select > 0) {
@@ -1845,9 +1990,37 @@ public class Game extends JFrame implements KeyListener{
                                 msl = 100;
                             }
                             g.setColor(Color.white);
+                            switch(m_item){
+                                case 4:
+                                    if(buy4 == 1 && menu_up != 165){
+                                        g.setColor(Color.red);
+                                    }
+                                    break;
+                                case 7:
+                                    if(buy7 == 1 && menu_up != 165 || lvl < 15 && menu_up != 165){
+                                        g.setColor(Color.red);
+                                    }
+                                    break;
+                                case 8:
+                                    if(buy8 == 1 && menu_up != 165){
+                                        g.setColor(Color.red);
+                                    }
+                                    break;
+                                case 10:
+                                    if(buy10 == 1 && menu_up != 165){
+                                        g.setColor(Color.red);
+                                    }
+                                    break;
+                            }
+                            if(nogold == 1 ){
+                                if(m_back != 1) {
+                                    g.setColor(Color.red);
+                                }
+                            }
                             g.fillRect((int) i_over, (int) menu_up, msl, 30);
                             select = select - 1;
                             if (select == 1) {
+                                nogold = 0;
                                 select = 0;
                                 blink = 1;
                             }
@@ -1857,8 +2030,8 @@ public class Game extends JFrame implements KeyListener{
                         g.drawString("80g", 500, 230);
                         g.drawString("150g", 500, 260);
                         g.drawString("1500", 500, 290);
-                        g.drawString("300g", 500, 320);
-                        g.drawString("400g", 500, 350);
+                        g.drawString(Integer.toString(dprice) + "g", 500, 320);
+                        g.drawString(Integer.toString(aprice) + "g", 500, 350);
                         g.drawString("5000g", 500, 380);
                         g.drawString("1000g", 500, 410);
                         g.drawString("200g", 500, 440);
@@ -1998,8 +2171,8 @@ public class Game extends JFrame implements KeyListener{
 
                         g.setFont(font3);
                         g.setColor(Color.black);
-                        g.drawString("even stronger slime", 30, 72);
-
+                        g.drawString("Anthrax", 30, 72);
+                        g.drawImage(anthrax, 370, (int) 80, anthrax.getWidth() / 4, anthrax.getHeight() / 4, null);
                         g.setColor(Color.gray);
                         g.fillRect(127,51,206, 28);
 
@@ -2025,8 +2198,8 @@ public class Game extends JFrame implements KeyListener{
 
                         g.setFont(font3);
                         g.setColor(Color.black);
-                        g.drawString("stronger slime", 30, 72);
-
+                        g.drawString("Humungousaur", 30, 72);
+                        g.drawImage(dontsuemesaur, 520, (int) 80, dontsuemesaur.getWidth() / 4, dontsuemesaur.getHeight() / 4, null);
                         g.setColor(Color.gray);
                         g.fillRect(127,51,206, 28);
 
@@ -2054,6 +2227,8 @@ public class Game extends JFrame implements KeyListener{
                         g.setColor(Color.black);
                         g.drawString("slime", 30, 72);
 
+                        g.drawImage(slime, 450, (int) 130, hair.getHeight() / 7, hair.getWidth() / 7, null);
+
                         g.setColor(Color.gray);
                         g.fillRect(127,51,206, 28);
 
@@ -2066,12 +2241,20 @@ public class Game extends JFrame implements KeyListener{
                         if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
-
                         g.fillRect(130,54,(int)e_hp * (200 / fe_hp), 22);
-
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
+                }
+                g.setColor(Color.gray);
+                g.fillRect(80,300, 140, 140);
+                switch(head){
+                    case 0:
+                        g.drawImage(g_hair, 393, (int) 150, hair.getWidth() / -2, hair.getHeight() / 2, null);
+                        break;
+                    case 1:
+                    g.drawImage(hair, 393, (int) 150, hair.getWidth() / -2, hair.getHeight() / 2, null);
+                    break;
                 }
                 if (debug == 1){
                     g.setFont(font4);
