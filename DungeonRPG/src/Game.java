@@ -127,7 +127,7 @@ public class Game extends JFrame implements KeyListener{
     public int a_buy = 0;
     public int dprice = 300;
     public int aprice = 400;
-    public int vanilla_bean_coolata = 0;
+    public int vanilla_bean_coolata = 1;
     public int buy5 = 0;
     public int buy8 = 0;
     public int buy9 = 0;
@@ -750,6 +750,8 @@ public class Game extends JFrame implements KeyListener{
                             }
                             if (vanilla_bean_coolata == 1 && g_pass == 1){
                                 current_room = room.boss;
+                                wo = 20;
+                                wi = 270;
                             }
                         }
                         if (740 > wo && wo > 410 && 530 > wi && wi > 480) {
@@ -1119,6 +1121,119 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                                 case 4:
                                     e_over3 = 690;
+                                    break;
+                            }
+                        }
+                        break;
+                    case boss:
+                        if (740 > wo && wo > 50 && 520 > wi && wi > 480) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    wi = 480;
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (70 > wo && wo > 20 && 240 > wi && wi > 40) {
+                            switch (move) {
+                                case 1:
+                                    wi = 240;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    wo = 70;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (70 > wo && wo > 20 && 520 > wi && wi > 300) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    wi = 300;
+                                    break;
+                                case 3:
+                                    wo = 70;
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (740 > wo && wo > 50 && 60 > wi && wi > 50) {
+                            switch (move) {
+                                case 1:
+                                    wi = 60;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                            }
+                        }
+                        if (740 > wo && wo > 690 && 530 > wi && wi > 50) {
+                            switch (move) {
+                                case 1:
+                                    wi = 240;
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    wo = 690;
+                                    break;
+                            }
+                        }
+                        if (740 > wo && wo > 690 && 500 > wi && wi > 300) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    wi = 300;
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    wo = 690;
+                                    break;
+                            }
+                        }
+                        if (740 > wo && wo > 50 && 530 > wi && wi > 480) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    wi = 480;
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    wo = 410;
+                                    break;
+                            }
+                        }
+                        if (20 > wo && wo > 10 && 310> wi && wi > 250) {
+                            switch (move) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    current_room = room.dungeon1;
+                                    wo = 730;
+                                    wi=270;
+                                    break;
+                                case 4:
                                     break;
                             }
                         }
@@ -1978,6 +2093,22 @@ public class Game extends JFrame implements KeyListener{
                         g.fillRect(e_over2, e_up2, 30, 30);
                         g.setColor(Color.yellow);
                         g.fillRect(e_over3, e_up3, 30, 30);
+                        break;
+                    case boss:
+                        g.setColor(Color.GRAY);
+                        g.fillRect(60, 50, 680, 10);
+                        g.fillRect(730, 50, 10, 480);
+                        g.fillRect(60, 50, 10, 190);
+                        g.fillRect(25, 230, 45, 10);
+                        g.fillRect(25, 340, 45, 10);
+                        if(boss_door == 1) {
+                            g.fillRect(775, 230, 10, 120);
+                        }
+                        g.setColor(Color.white);
+                        g.fillRect(25, 240, 5, 100);
+                        g.setColor(Color.GRAY);
+                        g.fillRect(60, 340, 10, 190);
+                        g.fillRect(60, 520, 680, 10);
                         break;
                 }
                 g.setColor(Color.white);
