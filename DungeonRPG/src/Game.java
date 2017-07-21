@@ -127,7 +127,7 @@ public class Game extends JFrame implements KeyListener{
     public int a_buy = 0;
     public int dprice = 300;
     public int aprice = 400;
-    public int vanilla_bean_coolata = 1;
+    public int vanilla_bean_coolata = 0;
     public int buy5 = 0;
     public int buy8 = 0;
     public int buy9 = 0;
@@ -142,6 +142,8 @@ public class Game extends JFrame implements KeyListener{
     public int goldcost = 2000;
     public int potion = 0;
     public int skillunlock = 0;
+    public int boss_up = 275;
+    public int boss_over = 375;
     public enum room{
         shop,
         dungeon1,
@@ -1237,6 +1239,23 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                         }
+                        if (425> wo && wo > 335 && 325> wi && wi > 235) {
+                            switch (move) {
+                                case 1:
+                                    wi = 325;
+                                    break;
+                                case 2:
+                                    wi = 235;
+                                    break;
+                                case 3:
+                                    wo = 425;
+                                    break;
+                                case 4:
+                                    wo = 335;
+                                    break;
+                            }
+                            encounter = 4;
+                        }
                 }
                 break;
             case encounter:
@@ -2109,6 +2128,7 @@ public class Game extends JFrame implements KeyListener{
                         g.setColor(Color.GRAY);
                         g.fillRect(60, 340, 10, 190);
                         g.fillRect(60, 520, 680, 10);
+                        g.fillRect(boss_over, boss_up, 50, 50);
                         break;
                 }
                 g.setColor(Color.white);
