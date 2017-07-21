@@ -106,7 +106,7 @@ public class Game extends JFrame implements KeyListener{
     public int turn = 1;
     public int e_attack = 0;
     public int b_lag = 0;
-    public int lvl = 9;
+    public int lvl = 1;
     public int lvlxp = 20;
     public int addxp = 0;
     public int addgold = 0;
@@ -145,6 +145,13 @@ public class Game extends JFrame implements KeyListener{
     public int boss_up = 275;
     public int boss_over = 375;
     public int wincolor = 1;
+    public double healthbar = 0;
+    public double dhp = 0;
+    public double dfhp = 0;
+    public double ehealthbar = 0;
+    public double de_hp = 0;
+    public double dfe_hp = 0;
+    public double behealthbar = 0;
     public enum room{
         shop,
         dungeon1,
@@ -275,6 +282,13 @@ public class Game extends JFrame implements KeyListener{
         if(b_up == 550 && b_over == 230){
             b_but = 4;
         }
+        dhp = hp;
+        dfhp = fhp;
+        healthbar= (dhp/dfhp * 200);
+        de_hp = e_hp;
+        dfe_hp = fe_hp;
+        ehealthbar= (de_hp/dfe_hp * 200);
+        behealthbar= (de_hp/dfe_hp * 500);
         if(current_state == game_state.encounter && select == 1 &&  b_but == 1){
             attack = ThreadLocalRandom.current().nextInt(atkl, atkh + 1);
             if(e_def >= attack){
@@ -2065,7 +2079,7 @@ public class Game extends JFrame implements KeyListener{
                                     break;
                             }
                             break;
-                        case KeyEvent.VK_O:
+                        case KeyEvent.VK_Z:
                             show_menu = 0;
                             current_state = game_state.play_game;
                             break;
@@ -2768,6 +2782,8 @@ public class Game extends JFrame implements KeyListener{
                         g.setFont(font5);
                         g.drawString("*you have unlocked a new skill! Defence Destroyer cuts the enemy defense", 30, 560);
                         g.drawString("in half but costs 10 of each potion to use*", 30, 580);
+                        g.setFont(font3);
+                        g.drawString("press Z to continue", 30, 595);
                         break;
                 }
                 g.setColor(Color.white);
@@ -2788,7 +2804,7 @@ public class Game extends JFrame implements KeyListener{
                 if((hp * 10 / fhp * 10) <= 30){
                     g.setColor(Color.red);
                 }
-                    g.fillRect(560, 504, (int)((hp / fhp) * 200), 22);
+                    g.fillRect(560, 504, (int)healthbar, 22);
                 g.setColor(Color.black);
                 g.drawString(Integer.toString(hp) + "/" + Integer.toString(fhp), 650, 523);
                 switch (encounter){
@@ -2811,7 +2827,7 @@ public class Game extends JFrame implements KeyListener{
                         if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
-                        g.fillRect(130,54,(int)((e_hp / fe_hp) * 200), 22);
+                        g.fillRect(130,54,(int)(ehealthbar), 22);
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
@@ -2834,7 +2850,7 @@ public class Game extends JFrame implements KeyListener{
                         if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
-                        g.fillRect(130,54,(int)((e_hp / fe_hp) * 200), 22);
+                        g.fillRect(130,54,(int)(ehealthbar), 22);
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
@@ -2857,7 +2873,7 @@ public class Game extends JFrame implements KeyListener{
                         if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
-                        g.fillRect(130,54,(int)((e_hp / fe_hp) * 200), 22);
+                        g.fillRect(130,54,(int)(ehealthbar), 22);
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
@@ -2880,7 +2896,7 @@ public class Game extends JFrame implements KeyListener{
                         if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
-                        g.fillRect(130,54,(int)((e_hp / fe_hp) * 200), 22);
+                        g.fillRect(130,54,(int)(behealthbar), 22);
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 370, 73);
                         break;
@@ -2911,6 +2927,9 @@ public class Game extends JFrame implements KeyListener{
                     g.drawString("blink: " + Integer.toString(blink), 20, 50);
                     g.drawString("msl: " + Integer.toString(msl), 100, 50);
                     g.drawString("gotgold: " + Integer.toString(gotgold), 170, 50);
+                    g.drawString("hp: " + Integer.toString(hp), 500, 220);
+                    g.drawString("fhp: " + Integer.toString(fhp), 500, 250);
+                    g.drawString("myhealthbar: " + Double.toString (healthbar), 500, 280);
                 }
                 break;
             case end:
