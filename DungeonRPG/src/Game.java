@@ -95,11 +95,11 @@ public class Game extends JFrame implements KeyListener{
     public int e_hp = 0;
     public int fe_hp = 0;
     public int atkl = 3;
-    public int atkh = 100000000;
+    public int atkh = 8;
     public int attack = 0;
     public int def = 0;
     public int e_def;
-    public int xp = 10000000;
+    public int xp = 0;
     public int despawn1 = 0;
     public int despawn2 = 0;
     public int despawn3 = 0;
@@ -107,7 +107,7 @@ public class Game extends JFrame implements KeyListener{
     public int e_attack = 0;
     public int b_lag = 0;
     public int lvl = 9;
-    public int lvlxp = 100000000;
+    public int lvlxp = 20;
     public int addxp = 0;
     public int addgold = 0;
     public int addatk = 0;
@@ -127,7 +127,7 @@ public class Game extends JFrame implements KeyListener{
     public int a_buy = 0;
     public int dprice = 300;
     public int aprice = 400;
-    public int vanilla_bean_coolata = 1;
+    public int vanilla_bean_coolata = 0;
     public int buy5 = 0;
     public int buy8 = 0;
     public int buy9 = 0;
@@ -160,7 +160,7 @@ public class Game extends JFrame implements KeyListener{
         win,
         gamecontinue
     }
-    game_state current_state = game_state.win;
+    game_state current_state = game_state.menu;
     //current_state = game_state(menu);
     //sprite1 variables
     private float x = 50;
@@ -1400,6 +1400,109 @@ public class Game extends JFrame implements KeyListener{
                 }
                 break;
             case gamecontinue:
+                if(blink == 1 && i_over == 170){
+                    boss_up = 9000;
+                    boss_over = 9000;
+                    current_state = game_state.play_game;
+                }
+                if(blink == 1 && i_over == 420){
+                    move = 1;
+                    domove = 0;
+                    b_over = 20;
+                    b_up = 500;
+                    hp = 50;
+                    select = 0;
+                    click = 1;
+                    Name_length = 0;
+                    m_up = 397;
+                    access = 0;
+                    b_but = 1;
+                    upppercase = 0;
+                    show_menu = 0;
+                    r_heal = 5;
+                    b_heal = 2;
+                    g_heal = 1;
+                    heal = 0;
+                    i_over = 15;
+                    i_up = 0;
+                    blink = 0;
+                    i_back = 0;
+                    walk_on = 0;
+                    debug = 0;
+                    gold = 0;
+                    bugde = 40;
+                    head = 0;
+                    head_change = 0;
+                    e_up1 = 350;
+                    e_over1 = 180;
+                    e_up2 = 260;
+                    e_over2 = 560;
+                    e_up3 = 90;
+                    e_over3 = 200;
+                    e1 = 0;
+                    e2 = 0;
+                    e3 = 0;
+                    e_move1 = 0;
+                    e_move2 = 0;
+                    e_move3 = 0;
+                    encounter = 0;
+                    e_hp = 0;
+                    fe_hp = 0;
+                    atkl = 3;
+                    int atkh = 8;
+                    int attack = 0;
+                    int def = 0;
+                    int e_def;
+                    xp = 0;
+                    despawn1 = 0;
+                    despawn2 = 0;
+                    despawn3 = 0;
+                    turn = 1;
+                    e_attack = 0;
+                    b_lag = 0;
+                    lvl = 1;
+                    lvlxp = 20;
+                    addxp = 0;
+                    addgold = 0;
+                    addatk = 0;
+                    fhp = 50;
+                    menwait = 0;
+                    pause = 0;
+                    openshop = 0;
+                    m_item = 1;
+                    menu_up = 140;
+                    spawntime = 500;
+                    m_up2 = 140;
+                    msl = 100;
+                    m_back = 0;
+                    xp_mult = 1;
+                    gold_mult = 1;
+                    d_buy = 0;
+                    a_buy = 0;
+                    dprice = 300;
+                    aprice = 400;
+                    vanilla_bean_coolata = 0;
+                    buy5 = 0;
+                    buy8 = 0;
+                    buy9 = 0;
+                    buy11 = 0;
+                    gotgold = 0;
+                    boss_door = 1;
+                    g_pass = 0;
+                    redh = 20;
+                    blueh = 50;
+                    greenh = 80;
+                    xpcost = 1500;
+                    goldcost = 2000;
+                    potion = 0;
+                    skillunlock = 0;
+                    boss_up = 275;
+                    boss_over = 375;
+                    wincolor = 1;
+                    current_state = game_state.menu;
+                    current_room = room.shop;
+                    Player_name = Player_name2;
+                }
                 break;
         }
         }
@@ -1960,11 +2063,11 @@ public class Game extends JFrame implements KeyListener{
                                 case 8:
                                     select = 5;
                                     break;
-                                case 9:
-                                    show_menu = 0;
-                                    current_state = game_state.play_game;
-                                    break;
                             }
+                            break;
+                        case KeyEvent.VK_O:
+                            show_menu = 0;
+                            current_state = game_state.play_game;
                             break;
                     }
                 }
@@ -1975,34 +2078,102 @@ public class Game extends JFrame implements KeyListener{
                         hp = 50;
                         current_state = game_state.play_game;
                         current_room = room.shop;
-                        wo = 380;
-                        wi = 280;
+                        move = 1;
+                        domove = 0;
+                        b_over = 20;
+                        b_up = 500;
                         hp = 50;
+                        select = 0;
+                        click = 1;
+                        Name_length = 0;
+                        m_up = 397;
+                        access = 0;
+                        b_but = 1;
+                        upppercase = 0;
+                        show_menu = 0;
+                        r_heal = 5;
+                        b_heal = 2;
+                        g_heal = 1;
+                        heal = 0;
+                        i_over = 15;
+                        i_up = 0;
+                        blink = 0;
+                        i_back = 0;
+                        walk_on = 0;
+                        debug = 0;
+                        gold = 0;
+                        bugde = 40;
+                        head = 0;
+                        head_change = 0;
+                        e_up1 = 350;
+                        e_over1 = 180;
+                        e_up2 = 260;
+                        e_over2 = 560;
+                        e_up3 = 90;
+                        e_over3 = 200;
+                        e1 = 0;
+                        e2 = 0;
+                        e3 = 0;
+                        e_move1 = 0;
+                        e_move2 = 0;
+                        e_move3 = 0;
+                        encounter = 0;
+                        e_hp = 0;
+                        fe_hp = 0;
+                        atkl = 3;
+                        int atkh = 8;
+                        int attack = 0;
+                        int def = 0;
+                        int e_def;
+                        xp = 0;
+                        despawn1 = 0;
+                        despawn2 = 0;
+                        despawn3 = 0;
+                        turn = 1;
+                        e_attack = 0;
+                        b_lag = 0;
+                        lvl = 1;
+                        lvlxp = 20;
+                        addxp = 0;
+                        addgold = 0;
+                        addatk = 0;
+                        fhp = 50;
+                        menwait = 0;
+                        pause = 0;
+                        openshop = 0;
+                        m_item = 1;
+                        menu_up = 140;
+                        spawntime = 500;
+                        m_up2 = 140;
+                        msl = 100;
+                        m_back = 0;
+                        xp_mult = 1;
+                        gold_mult = 1;
+                        d_buy = 0;
+                        a_buy = 0;
+                        dprice = 300;
+                        aprice = 400;
+                        vanilla_bean_coolata = 0;
                         buy5 = 0;
                         buy8 = 0;
                         buy9 = 0;
                         buy11 = 0;
-                        d_buy = 0;
-                        a_buy = 0;
-                        xp_mult = 1;
-                        gold_mult = 1;
-                        vanilla_bean_coolata = 0;
-                        atkh = 8;
-                        atkl = 3;
-                        def = 0;
-                        spawntime = 500;
-                        fe_hp = 50;
-                        r_heal = 5;
-                        b_heal = 2;
-                        g_heal = 1;
-                        access = 0;
-                        lvl = 1;
-                        lvlxp = 20;
-                        xp = 0;
-                        gold = 0;
-                        Player_name = Player_name2;
-                        Name_length = 0;
+                        gotgold = 0;
+                        boss_door = 1;
+                        g_pass = 0;
+                        redh = 20;
+                        blueh = 50;
+                        greenh = 80;
+                        xpcost = 1500;
+                        goldcost = 2000;
+                        potion = 0;
+                        skillunlock = 0;
+                        boss_up = 275;
+                        boss_over = 375;
+                        wincolor = 1;
                         current_state = game_state.menu;
+                        current_room = room.shop;
+                        Player_name = Player_name2;
                 }
                 break;
             case win:
@@ -2617,12 +2788,7 @@ public class Game extends JFrame implements KeyListener{
                 if((hp * 10 / fhp * 10) <= 30){
                     g.setColor(Color.red);
                 }
-                if(fhp < 200) {
-                    g.fillRect(560, 504, (int) hp * (200 / fhp), 22);
-                }
-                if(fhp >= 200) {
-                    g.fillRect(560, 504, (int) (hp / 200) * (fhp / 200), 22);
-                }
+                    g.fillRect(560, 504, (int)((hp / fhp) * 200), 22);
                 g.setColor(Color.black);
                 g.drawString(Integer.toString(hp) + "/" + Integer.toString(fhp), 650, 523);
                 switch (encounter){
@@ -2645,7 +2811,7 @@ public class Game extends JFrame implements KeyListener{
                         if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
-                        g.fillRect(130,54,(int)e_hp * (200 / fe_hp), 22);
+                        g.fillRect(130,54,(int)((e_hp / fe_hp) * 200), 22);
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
@@ -2668,7 +2834,7 @@ public class Game extends JFrame implements KeyListener{
                         if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
-                        g.fillRect(130,54,(int)e_hp * (200 / fe_hp), 22);
+                        g.fillRect(130,54,(int)((e_hp / fe_hp) * 200), 22);
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
@@ -2691,7 +2857,7 @@ public class Game extends JFrame implements KeyListener{
                         if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
-                        g.fillRect(130,54,(int)e_hp * (200 / fe_hp), 22);
+                        g.fillRect(130,54,(int)((e_hp / fe_hp) * 200), 22);
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 220, 73);
                         break;
@@ -2714,7 +2880,7 @@ public class Game extends JFrame implements KeyListener{
                         if((e_hp * 10/ fe_hp * 10) <= 30){
                             g.setColor(Color.red);
                         }
-                        g.fillRect(130,54,(int)e_hp * (500 / fe_hp), 22);
+                        g.fillRect(130,54,(int)((e_hp / fe_hp) * 200), 22);
                         g.setColor(Color.black);
                         g.drawString(Integer.toString(e_hp) + "/" + Integer.toString(fe_hp), 370, 73);
                         break;
@@ -2797,10 +2963,12 @@ public class Game extends JFrame implements KeyListener{
                 g.drawString("Reset", 450, 330);
                 g.setColor(Color.red);
                 g.fillRect((int) i_over, (int) i_up, 20, 30);
+                select = select - 1;
                 if(select == 1){
                     select = 0;
+                    blink = 1;
                     g.setColor(Color.white);
-                    
+                    g.fillRect((int) i_over, (int) i_up, 180, 30);
                 }
                 break;
         }
